@@ -16,6 +16,9 @@ import { ProfileComponent } from './User/profile/profile.component';
 import { RegisterComponent } from './User/register/register.component';
 import { HomeComponent } from './Home/home/home.component';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,9 @@ import { HomeComponent } from './Home/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
