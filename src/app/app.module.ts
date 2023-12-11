@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/Home/footer/footer.component';
 import { HeaderComponent } from './components/Home/header/header.component';
@@ -38,6 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     

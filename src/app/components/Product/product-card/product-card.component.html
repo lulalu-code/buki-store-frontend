@@ -2,11 +2,11 @@
     <div class="rounded-xl bg-[#e5e5efda] w-2/3 h-2/3 m-6 mb-10 p-8 px-16">
         <div class="flex justify-between p-6">
             <div>
-                <h1 class="font-bold text-4xl font text-[#27272a]"> Título </h1>
+                <h1 class="font-bold text-4xl font text-[#27272a]"> {{product?.title}} </h1>
             </div>    
             <div>
                 <h3>Creado por:</h3>
-                <a routerLink="/profile">NOMBRE ARTESANO</a>
+                <a routerLink="/profile">{{product?.author_name}}</a>
             </div>    
         </div>
         <div class="flex justify-center">
@@ -26,14 +26,12 @@
             </button>   
         </div>
         <div class="font-bold my-3">
-            0 x 0 x 0
+            {{product?.height}} x {{product?.width}} x {{product?.length}}
         </div>
         <div>
             <p class="mb-6">DESCRIPCIÓN</p>
             <div class="flex">
-                <p class="mr-10 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                </p>
+                <p class="mr-10 text-justify">{{product?.description}}</p>
                 <div class="">
                     <button routerLink="/contact">
                         <div class="bg-[#65D0BD] py-2 px-12 mb-2 rounded-full">

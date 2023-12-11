@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile', component: ProfileComponent},
   { path: 'about', component: AboutUsComponent},
-  { path: 'product', component: ProductCardComponent},
+  { path: 'product/:id', component: ProductCardComponent},
   { path: 'contact', component: ContactFormComponent},
   { path: 'login', component: LoginComponent},
   { path: 'product-form', component: ProductFormComponent},
