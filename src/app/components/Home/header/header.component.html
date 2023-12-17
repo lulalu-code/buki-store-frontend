@@ -14,8 +14,8 @@
       </div>
     </a>
 
-    <div class="">
-     <a routerLink="/login">
+    <div *ngIf="!showAuthSection" routerLink="/login">
+     <a>
        <button class="">
          <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 hover:scale-105 hover:duration-150">
            <p class="text-white font-semibold">Iniciar sesión</p>
@@ -29,5 +29,22 @@
          </div>  
        </button>
      </a>  
-    </div>  
+    </div>
+    <div *ngIf="showAuthSection">
+      <a>
+      <button class="">
+        <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 hover:scale-105 hover:duration-150">
+          <p class="text-white font-semibold">Mi perfil</p>
+        </div>  
+      </button>
+    </a>
+    <a routerLink="/product-form">
+      <button class="">
+        <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full flex transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 scale-105 duration-150">
+          <p class="text-white font-semibold">+ Sube tu arte</p>
+        </div>  
+      </button>
+    </a>
+  </div>
+
    </header> 

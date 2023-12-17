@@ -9,5 +9,6 @@ export interface Product {
     width:number,
     length:number,
     is_customable:boolean,
-    imageURL:string
+    imageURL:string,
+    price:number
 }
