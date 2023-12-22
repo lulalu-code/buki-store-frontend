@@ -1,1 +1,48 @@
-<p>product-form works!</p>
+<div class="rounded-3xl bg-[#e5e5efda] w-2/4 h-full m-6 pb-6 pt-3 ml-auto mr-auto">
+    <p id="registerFeedback"></p>
+  <div>
+    <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Añade un producto</h1>
+    <form [formGroup]="productForm" (ngSubmit)="createProduct()" class="py-5 px-10">
+      <div class="">
+        <input placeholder="Título" [formControl]="title"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="title.errors" [ngClass]="'error'">
+          <div *ngIf="title.errors['required']" class="text-red-700">Se requiere un título.</div>
+          <div *ngIf="title.errors['minlength']" class="text-red-700">El título debe tener al menos 3 caracteres.</div>
+          <div *ngIf="title.errors['maxlength']" class="text-red-700">El nombre puede contener como máximo 25 caracteres.</div>
+        </div>
+        <input placeholder="Descripción" [formControl]="description"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="description.errors" [ngClass]="'error'">
+          <div *ngIf="description.errors['required']" class="text-red-700">Se requiere una descripción.</div>
+          <div *ngIf="description.errors['minlength']" class="text-red-700">La descripción debe tener al menos 2 caracteres.</div>
+          <div *ngIf="description.errors['maxlength']" class="text-red-700">El nombre puede contener como máximo 255 caracteres.</div>
+        </div>
+        <input placeholder="Category" [formControl]="category"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="category.errors" [ngClass]="'error'">
+          <div *ngIf="category.errors['required']" class="text-red-700">Se requiere una categoría.</div>
+          <div *ngIf="category.errors['minlength']" class="text-red-700">La categoría debe tener al menos 3 caracteres.</div>
+          <div *ngIf="category.errors['maxlength']" class="text-red-700">La categoría puede contener como máximo 16 caracteres.</div>
+        </div>
+        <input placeholder="Altura" [formControl]="height"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="height.errors" [ngClass]="'error'">
+          <div *ngIf="height.errors['required']" class="text-red-700">Se requiere la altura.</div>
+        </div>
+        <input placeholder="Anchura" [formControl]="width"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="width.errors" [ngClass]="'error'">
+          <div *ngIf="width.errors['required']" class="text-red-700">Se requiere la anchura.</div>
+        </div>
+        <input placeholder="Fondo" [formControl]="length"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="length.errors" [ngClass]="'error'">
+          <div *ngIf="length.errors['required']" class="text-red-700">Se requiere el fondo.</div>
+        </div>
+        <input placeholder="¿Es personalizable?" [formControl]="is_customable"  type="checkbox" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <input placeholder="Precio" [formControl]="price"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="price.errors" [ngClass]="'error'">
+            <div *ngIf="price.errors['required']" class="text-red-700">Se requiere un precio.</div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <button class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white" type="submit">Registrarse</button>
+      </div>
+    </form>
+  </div>
+</div>
