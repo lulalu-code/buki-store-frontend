@@ -2,39 +2,36 @@
     <p id="registerFeedback"></p>
   <div>
     <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Crea una cuenta</h1>
-    <form class="py-5 px-10">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="py-5 px-10">
       <div class="">
-        <input placeholder="Alias" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="text"/>
-        <div>
-          <div class="text-red-700">Se requiere un alias.</div>
-          <div class="text-red-700">
-            El alias debe tener al menos 5 caracteres.
-          </div>
-          <div class="text-red-700">
-            El alias debe puede contener como máximo 25 caracteres.
-          </div>
+        <input placeholder="Alias" [formControl]="name"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="name.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+          <div *ngIf="name.errors['required']" class="text-red-700">Se requiere un nombre.</div>
+          <div *ngIf="name.errors['minlength']" class="text-red-700">El nombre debe tener al menos 5 caracteres.</div>
+          <div *ngIf="name.errors['maxlength']" class="text-red-700">El nombre puede contener como máximo 25 caracteres.</div>
         </div>
       </div>
       <div>
-        <input placeholder="Email" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="email" />
-        <div>
-          <div class="text-red-700">Se requiere un mail.</div>
-          <div class="text-red-700">Formato de mail no válido.</div>
+        <input placeholder="Email" [formControl]="email" type="email" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
+        <div *ngIf="email.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+          <div *ngIf="email.errors['required']" class="text-red-700">Se requiere un mail.</div>
+          <div *ngIf="email.errors['pattern']" class="text-red-700">Formato de mail no válido.</div>
         </div>
       </div>
       <div>
-        <input placeholder="Contraseña" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="password"/>
-        <div>
-          <div class="text-red-700">Se requiere una contraseña.</div>
-          <div class="text-red-700">
-            La contraseña debe tener al menos 8 caracteres.
-          </div>
+        <input placeholder="Contraseña" [formControl]="password" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="password"/>
+        <div *ngIf="password.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+          <div *ngIf="password.errors['required']" class="text-red-700">Se requiere una contraseña.</div>
+          <div *ngIf="password.errors['minlength']" class="text-red-700">La contraseña debe tener al menos 8 caracteres.</div>
+          <div *ngIf="password.errors['maxlength']" class="text-red-700">La contraseña puede contener como máximo 16 caracteres.</div>
         </div>
       </div>
       <div>
-        <input placeholder="Población" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="text"/>
-        <div>
-          <div class="text-red-700">Se requiere una ciudad.</div>
+        <input placeholder="Población" [formControl]="zone" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="text"/>
+        <div *ngIf="zone.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+          <div *ngIf="zone.errors['required']" class="text-red-700">Se requiere una ciudad.</div>
+          <div *ngIf="zone.errors['minlength']" class="text-red-700">La contraseña debe tener al menos 2 caracteres.</div>
+          <div *ngIf="zone.errors['maxlength']" class="text-red-700">La contraseña puede contener como máximo 50 caracteres.</div>
         </div>
       </div>
       <div class="flex justify-center">

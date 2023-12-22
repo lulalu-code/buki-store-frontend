@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit{
 
     this.zone = new FormControl(this.registerUser.zone, [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(2),
       Validators.maxLength(50),
     ]);
 

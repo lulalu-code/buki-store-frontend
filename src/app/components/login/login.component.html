@@ -2,22 +2,21 @@
     <p id="registerFeedback"></p>
   <div>
     <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Iniciar sesión</h1>
-    <form class="py-5 px-10">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="py-5 px-10">
       
       <div>
-        <input placeholder="Email" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="email" />
-        <div>
-          <div class="text-red-700">Email requerido.</div>
-          <div class="text-red-700">Formato de mail no válido.</div>
+        <input placeholder="Email" [formControl]="email" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="email" />
+        <div *ngIf="email.errors" [ngClass]="'error'">
+          <div *ngIf="email.errors['required']" class="text-red-700">Se requiere un mail.</div>
+          <div *ngIf="email.errors['pattern']" class="text-red-700">Formato de mail no válido.</div>
         </div>
       </div>
       <div>
-        <input placeholder="Password" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="password"/>
-        <div>
-          <div class="text-red-700">Constraseña requerida.</div>
-          <div class="text-red-700">
-            La contraseña debe tener al menos 8 caracteres.
-          </div>
+        <input placeholder="Password" [formControl]="password" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="password"/>
+        <div *ngIf="password.errors" [ngClass]="'error'">
+          <div *ngIf="password.errors['required']" class="text-red-700">Se requiere una contraseña.</div>
+          <div *ngIf="password.errors['minlength']" class="text-red-700">La contraseña debe tener al menos 8 caracteres.</div>
+          <div *ngIf="password.errors['maxlength']" class="text-red-700">La contraseña puede contener como máximo 16 caracteres.</div>
         </div>
       </div>
       

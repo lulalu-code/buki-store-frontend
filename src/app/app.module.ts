@@ -19,6 +19,7 @@ import { RegisterComponent } from './components/User/register/register.component
 import { HomeComponent } from './components/Home/home/home.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule
     
   ],
   providers: [],
