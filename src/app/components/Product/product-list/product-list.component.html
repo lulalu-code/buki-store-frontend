@@ -1,8 +1,8 @@
-<div class="flex">
-        <a *ngFor="let product of products" class="row animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] m-6 w-1/5 h-1-5" [routerLink]="['/product', product.id]">
+<div class="flex flex-wrap p-6 fade-in justify-center">
+    <div class="animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] w-1/5 m-4" *ngFor="let product of products" [routerLink]="['/product', product.id]">
+        <a class="block rounded-3xl">
             <div class="flex justify-center">
-                <img class="w-full rounded-3xl"
-                alt="Image of teddy bears"
+                <img class="w-full rounded-3xl w-100 h-60 object-cover"
                 [src]="product.imageURL"
                 />
             </div>
@@ -23,4 +23,5 @@
                 </div>    
             </div>
         </a>
+    </div>    
 </div>    
