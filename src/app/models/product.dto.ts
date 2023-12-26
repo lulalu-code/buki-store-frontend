@@ -4,12 +4,12 @@ export class Product {
     description:string;
     author_name:string;
     category:string;
-    height:number;
-    width:number;
-    length:number;
+    cm_height:number|undefined;
+    cm_width:number|undefined;
+    cm_length:number|undefined;
     is_customable:boolean;
     imageURL:string;
-    price:number;
+    price:number|undefined;
 
     constructor(
         id:string,
@@ -17,21 +17,21 @@ export class Product {
         description:string,
         author_name:string,
         category:string,
-        height:number,
-        width:number,
-        length:number,
+        cm_height:number|undefined,
+        cm_width:number|undefined,
+        cm_length:number|undefined,
         is_customable:boolean,
         imageURL:string,
-        price:number
+        price:number|undefined
       ) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.author_name = author_name;
         this.category = category;
-        this.height = height;
-        this.width = width;
-        this.length = length;
+        this.cm_height = cm_height;
+        this.cm_width = cm_width;
+        this.cm_length = cm_length;
         this.is_customable = is_customable;
         this.imageURL = imageURL;
         this.price = price;

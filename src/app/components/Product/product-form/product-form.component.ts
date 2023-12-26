@@ -15,9 +15,9 @@ export class ProductFormComponent implements OnInit{
   description: FormControl;
   author_name: FormControl;
   category: FormControl;
-  height: FormControl;
-  width: FormControl;
-  length: FormControl;
+  cm_height: FormControl;
+  cm_width: FormControl;
+  cm_length: FormControl;
   is_customable:FormControl;
   imageURL:FormControl;
   price:FormControl;
@@ -29,7 +29,7 @@ export class ProductFormComponent implements OnInit{
     private formBuilder: UntypedFormBuilder
   ){
 
-    this.registerProduct = new Product('','', '', '', '', 0, 0, 0, false, '', 0);
+    this.registerProduct = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined);
     this.isValidForm = null;
 
     this.title = new FormControl(this.registerProduct.title, [
@@ -56,15 +56,15 @@ export class ProductFormComponent implements OnInit{
       Validators.maxLength(16),
     ]);
 
-    this.height = new FormControl(this.registerProduct.height, [
+    this.cm_height = new FormControl(this.registerProduct.cm_height, [
       Validators.required,
     ]);
 
-    this.width = new FormControl(this.registerProduct.width, [
+    this.cm_width = new FormControl(this.registerProduct.cm_width, [
       Validators.required,
     ]);
 
-    this.length = new FormControl(this.registerProduct.length, [
+    this.cm_length = new FormControl(this.registerProduct.cm_length, [
       Validators.required,
     ]);
 
@@ -86,9 +86,9 @@ export class ProductFormComponent implements OnInit{
       description: this.description,
       author_name: this.author_name,
       category: this.category,
-      height: this.height,
-      width: this.width,
-      length: this.length,
+      cm_height: this.cm_height,
+      cm_width: this.cm_width,
+      cm_length: this.cm_length,
       is_customable: this.is_customable,
       imageURL:this.imageURL,
       price:this.price
@@ -101,4 +101,11 @@ export class ProductFormComponent implements OnInit{
 
   async createProduct(): Promise<void> {}
 
+  handleFileInput(event: any) {
+    const file = event.target.files[0];
+    this.imageURL = file;
+  }
+
 }
+
+
