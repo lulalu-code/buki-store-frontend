@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Product } from 'src/app/models/product.dto';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-form',
@@ -26,7 +27,8 @@ export class ProductFormComponent implements OnInit{
   isValidForm: boolean | null;
 
   constructor(
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private productService: ProductService,
   ){
 
     this.registerProduct = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined);
@@ -96,10 +98,30 @@ export class ProductFormComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.title.setValue(this.registerProduct.title);
+    this.description.setValue(this.registerProduct.description);
+    this.author_name.setValue(this.registerProduct.author_name);
+    this.category.setValue(this.registerProduct.category);
+    this.cm_height.setValue(this.registerProduct.cm_height);
+    this.cm_width.setValue(this.registerProduct.cm_width);
+    this.cm_length.setValue(this.registerProduct.cm_length);
+    this.is_customable.setValue(this.registerProduct.is_customable);
+    this.imageURL.setValue(this.registerProduct.imageURL);
+    this.price.setValue(this.registerProduct.price);
+  }
 
 
-  async createProduct(): Promise<void> {}
+  async createProduct(): Promise<void> {
+    let errorResponse: any;
+    console.log(this.registerProduct)
+    try {
+      this.productService.createProduct(this.registerProduct).subscribe();
+    } catch (error: any) {
+      errorResponse = error.error;
+      console.log(errorResponse);
+    }
+  }
 
   handleFileInput(event: any) {
     const file = event.target.files[0];
