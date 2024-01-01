@@ -11,7 +11,7 @@
         </div>
         <div class="flex justify-center">
             <img class="w-3/4 m-3 rounded-xl"
-            alt="Image of teddy bears"
+            [alt]="'Image of ' + product?.title"
             [src]="product?.imageURL"
             />
         </div>

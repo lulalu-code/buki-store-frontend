@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductFormComponent implements OnInit{
 
+  selectedFile: File | undefined;
 
   registerProduct: Product;
   title: FormControl;
@@ -36,7 +37,7 @@ export class ProductFormComponent implements OnInit{
 
     this.title = new FormControl(this.registerProduct.title, [
       Validators.required,
-      Validators.minLength(5),
+      Validators.minLength(3),
       Validators.maxLength(25),
     ]);
 
@@ -111,22 +112,23 @@ export class ProductFormComponent implements OnInit{
     this.price.setValue(this.registerProduct.price);
   }
 
-
+  handleFileInput(event: any) {
+    this.selectedFile = event.target.files[0];
+    //this.files.push(filePushed)
+  }
   async createProduct(): Promise<void> {
     let errorResponse: any;
-    console.log(this.registerProduct)
+    
     try {
-      this.productService.createProduct(this.registerProduct).subscribe();
+      this.productService.createProduct(this.productForm.value).subscribe();
+      console.log(this.productForm.value)
     } catch (error: any) {
       errorResponse = error.error;
       console.log(errorResponse);
     }
   }
-
-  handleFileInput(event: any) {
-    const file = event.target.files[0];
-    this.imageURL = file;
-  }
+ 
+  
 
 }
 

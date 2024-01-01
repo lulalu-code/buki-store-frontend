@@ -26,6 +26,7 @@ export class ProductService {
   }
 
   createProduct(product: Object): Observable<Object> {
+    console.log("PRODUCT FOR THE REQUEST :", JSON.stringify(product));
     return this.http.post(baseUrl + 'products', product);
   }
 
