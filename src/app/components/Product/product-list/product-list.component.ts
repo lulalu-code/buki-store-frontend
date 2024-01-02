@@ -23,7 +23,6 @@ export class ProductListComponent {
     return  this.productService
       .getAllProducts()
       .subscribe((products) => {
-        console.log("products is:" + JSON.stringify(products))
         this.products = products;
       });
     }

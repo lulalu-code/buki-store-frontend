@@ -27,6 +27,14 @@
         </div>
       </div>
       <div>
+        <input placeholder="Confirma contraseña" [formControl]="password_confirmation" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="password"/>
+        <div *ngIf="password.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
+          <div *ngIf="password.errors['required']" class="text-red-700">Se requiere la confirmación de la contraseña.</div>
+          <div *ngIf="password.errors['minlength']" class="text-red-700">La confirmación debe tener al menos 8 caracteres.</div>
+          <div *ngIf="password.errors['maxlength']" class="text-red-700">La confirmación puede contener como máximo 16 caracteres.</div>
+        </div>
+      </div>
+      <div>
         <input placeholder="Población" [formControl]="zone" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="text"/>
         <div *ngIf="zone.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">
           <div *ngIf="zone.errors['required']" class="text-red-700">Se requiere una ciudad.</div>

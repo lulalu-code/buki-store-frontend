@@ -14,7 +14,7 @@
       </div>
     </a>
 
-    <div *ngIf="showAuthSection" routerLink="/login">
+    <div *ngIf="!showAuthSection" routerLink="/login">
      <a>
        <button class="">
          <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 hover:scale-105 hover:duration-150">
@@ -30,7 +30,7 @@
        </button>
      </a>  
     </div>
-    <div *ngIf="!showAuthSection">
+    <div *ngIf="showAuthSection">
       <a>
       <button class="">
         <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 hover:scale-105 hover:duration-150">
@@ -42,6 +42,13 @@
       <button class="">
         <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full flex transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 scale-105 duration-150">
           <p class="text-white font-semibold">+ Sube tu arte</p>
+        </div>  
+      </button>
+    </a>
+    <a routerLink="/">
+      <button class="" (click)="logout()">
+        <div class="bg-white bg-opacity-30 py-2 px-12 m-3 rounded-full flex transition ease-in-out delay-75 hover:bg-[#666797] hover:-translate-y-1 scale-105 duration-150">
+          <p class="text-white font-semibold">Logout</p>
         </div>  
       </button>
     </a>

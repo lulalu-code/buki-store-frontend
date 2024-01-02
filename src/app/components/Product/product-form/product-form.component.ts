@@ -121,7 +121,7 @@ export class ProductFormComponent implements OnInit{
     
     try {
       this.productService.createProduct(this.productForm.value).subscribe();
-      console.log(this.productForm.value)
+      console.log(this.productForm.value);
     } catch (error: any) {
       errorResponse = error.error;
       console.log(errorResponse);

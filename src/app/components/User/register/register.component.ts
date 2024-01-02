@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit{
   name: FormControl;
   email: FormControl;
   password: FormControl;
+  password_confirmation: FormControl;
   zone: FormControl;
 
   registerForm: FormGroup;
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit{
     private formBuilder: UntypedFormBuilder
   ){
 
-    this.registerUser = new UserDTO('', '', '', '');
+    this.registerUser = new UserDTO('', '', '', '', '');
     this.isValidForm = null;
 
     this.name = new FormControl(this.registerUser.name, [
@@ -39,6 +40,12 @@ export class RegisterComponent implements OnInit{
 
 
     this.password = new FormControl(this.registerUser.password, [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(16)
+    ]);
+
+    this.password_confirmation = new FormControl(this.registerUser.password_confirmation, [
       Validators.required,
       Validators.minLength(8),
       Validators.maxLength(16)
