@@ -1,35 +1,40 @@
-<div class="flex">    
-    <div class="rounded-3xl bg-[#e5e5efda] w-1/6 h-96 m-6 mb-10 p-8 py-12">
-        <div class="flex justify-center">
-            <img class="w-7/8 m-1 mx-3 rounded-3xl"
+<div class="block laptop:flex">    
+    <div class="flex text-sm laptop:block rounded-3xl p-3 bg-[#e5e5efda] intermediate:text-base mobile:p-8 laptop:w-1/6 laptop:h-96 laptop:m-6 laptop:mb-10 laptop:py-12">
+        <div class="flex justify-center w-1/2 intermediate:w-full">
+            <img class="w-11/12 laptop:w-7/8 m-1 laptop:mx-3 rounded-3xl object-cover"
             alt="Image of teddy bears"
             src="../../../assets/images/imagen19.jpg"
             />
         </div>
-        <div class="font-extrabold text-xl py-4">
-            <h2 class="text-[#6948EF]">Alias</h2>
-        </div>
-        <div class="font-semibold my-3">
-            <div class="flex" routerLink="/contact">
-                <p class="pr-3">Mail</p>
-                <svg class="fill-[#6948EF]"xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+        <div class="mx-3">
+            <div class="font-extrabold text-xl py-4">
+                <h2 class="text-[#6948EF]">Alias</h2>
             </div>
-            <div class="flex">
-                <p class="pr-3">Localización</p>
-                <svg class="fill-[#6948EF]" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
-            </div>    
-        </div>
+            <div class="font-semibold my-3">
+                <div class="flex" routerLink="/contact">
+                    <p class="pr-3">Mail</p>
+                    <svg class="fill-[#6948EF]"xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+                </div>
+                <div class="flex">
+                    <p class="pr-3">Localización</p>
+                    <svg class="fill-[#6948EF]" xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+                </div>    
+            </div>
+        </div>    
     </div>    
-    <div class="flex rounded-xl bg-[#e5e5efda] w-2/3 h-2/3 m-6 mb-10 p-8 px-16">
-        <div class="flex mb-28">
+    <div class="w-full text-sm p-3 mobile:text-base rounded-3xl mt-4 laptop:rounded-xl mobile:p-6 bg-[#e5e5efda] laptop:w-2/3 laptop:m-6 laptop:h-2/3 mb-10">
+        <div class="flex mb-5 mobile:mb-8">
             <p class="text-white font-semibold mx-4">Ordenar por</p>
             <form action="#" class="flex w-1/12">
-                <select id="lang" class="rounded-full h-8 py-1 px-2 bg-[#65D0BD] text-white font-semibold text-center">
+                <select id="lang" class="rounded-full mobile:h-8 py-1 px-2 bg-[#65D0BD] text-white font-semibold text-center">
                 <option value="precio asc">Precio asc</option>
                 <option value="precio desc">Precio desc</option>
                 <option value="más nuevo">Más nuevo</option>
                 </select>
             </form>
+        </div>
+        <div>
+            <app-product-list></app-product-list>
         </div>    
     </div>    
 </div>   

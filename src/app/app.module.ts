@@ -21,6 +21,7 @@ import { HomeComponent } from './components/Home/home/home.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CarouselComponent } from './components/Home/carousel/carousel.component';
+import { CartComponent } from './components/cart/cart.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CarouselComponent } from './components/Home/carousel/carousel.component
     ContactFormComponent,
     HomeComponent,
     CarouselComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

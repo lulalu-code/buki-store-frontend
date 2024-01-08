@@ -1,13 +1,18 @@
-<div class="rounded-3xl bg-[#e5e5efda] w-2/4 h-2/3 m-6 pb-6 pt-3 ml-auto mr-auto">
+<div class="w-11/12 rounded-3xl bg-[#e5e5efda] intermediate:w-2/4 m-6 pb-6 pt-3 ml-auto mr-auto">
     <p id="registerFeedback"></p>
   <div>
-    <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Enviar un mensaje</h1>
+    <h1 class="text-2xl font-bold pt-7 px-10 intermediate:text-3xl font text-[#27272a]">Enviar un mensaje</h1>
     <form class="py-5 px-10">
+      <div class="mb-6">
+        <label class="block text-sm font-bold intermediate:text-base"> Asunto </label>
+        <input class="w-full intermediate:w-3/4 text-sm intermediate:text-base mt-2 text-white border rounded-xl  py-4 px-5 bg-[#505151]" type="text" placeholder="Escribe aquí el asunto..." required>
+      </div>
       <div class="">
-        <input placeholder="Escribe aquí tu mensaje..." class="w-full h-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="text"/>
+        <label class="block text-sm intermediate:text-base font-bold"> El mensaje </label>
+        <textarea placeholder="Escribe aquí tu mensaje..." class="text-sm intermediate:text-base mt-2 text-white border rounded-xl w-full py-4 px-5 bg-[#505151]" rows="6" required></textarea>
       </div>
       <div class="flex justify-center">
-        <button class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white" type="submit">Enviar</button>
+        <button class="px-12 bg-[#7552D8] py-3 intermediate:px-20 mt-2 rounded-full text-white" type="submit">Enviar</button>
       </div>
     </form>
   </div>
