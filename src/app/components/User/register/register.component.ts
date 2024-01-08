@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { UserDTO } from 'src/app/models/user.dto';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +12,7 @@ import { UserDTO } from 'src/app/models/user.dto';
 export class RegisterComponent implements OnInit{
 
   registerUser: UserDTO;
+  responseOK = false;
 
   name: FormControl;
   email: FormControl;
@@ -21,7 +24,9 @@ export class RegisterComponent implements OnInit{
   isValidForm: boolean | null;
 
   constructor(
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private authService: AuthService,
+    private http: HttpClient,
   ){
 
     this.registerUser = new UserDTO('', '', '', '', '');
@@ -37,7 +42,6 @@ export class RegisterComponent implements OnInit{
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
     ]);
-
 
     this.password = new FormControl(this.registerUser.password, [
       Validators.required,
@@ -65,10 +69,27 @@ export class RegisterComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void {}
-
-  async register(): Promise<void> {
+  ngOnInit(): void {
     
+  }
+
+  register(): void {
+
+    try {
+      this.authService.register(this.registerForm.value).subscribe({
+        next: response => {
+          console.log('Subscribe next: ' + JSON.stringify(response))
+          this.responseOK = true;
+        } ,
+        error: error => console.log('Subscribe error: ' + JSON.stringify(error))
+      }); //() => responseOK = true
+      console.log(this.registerForm.value);
+
+    } 
+    catch (error: any) {
+      console.log(error.error);
+    }
+
   }
 
 }

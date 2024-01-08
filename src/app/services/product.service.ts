@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.dto';
-
-const baseUrl = 'http://127.0.0.1:8000/api/';
+import { environment } from './../../environments/environment';
+import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 
 @Injectable({
@@ -11,26 +12,26 @@ const baseUrl = 'http://127.0.0.1:8000/api/';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService, private storageService: StorageService) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(baseUrl + 'products');
+    return this.http.get<Product[]>(environment.api_url + 'products', { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
   getProductById(id: string): Observable<Product> {
-    return this.http.get<Product>(baseUrl + 'products/' + id);
+    return this.http.get<Product>(environment.api_url + 'products/' + id);
   }
 
   deleteProductById(id: string): Observable<Object> {
-    return this.http.delete(baseUrl + 'products/' + id);
+    return this.http.delete(environment.api_url + 'products/' + id, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
   createProduct(product: Object): Observable<Object> {
-    return this.http.post(baseUrl + 'products', product);
+    return this.http.post(environment.api_url + 'products', product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
   updateProduct(id: string, product: Product): Observable<Object> {
-    return this.http.put(baseUrl + 'products/' + id, product);
+    return this.http.put(environment.api_url + 'products/' + id, product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
 }

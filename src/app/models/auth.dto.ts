@@ -16,3 +16,9 @@ export class AuthDTO {
       this.password = password;
     }
   }
+
+  export interface LoginResponse {
+    status: string,
+    response: string,
+    token: string
+  }

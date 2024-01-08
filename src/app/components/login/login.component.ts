@@ -5,6 +5,7 @@ import { AuthDTO } from 'src/app/models/auth.dto';
 import { HeaderMenus } from 'src/app/models/header-menu.dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 
 @Component({
@@ -20,12 +21,14 @@ export class LoginComponent  implements OnInit{
   loginForm: FormGroup;
   userService: any;
   productForm: any;
+  isLoggedIn = false;
   
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private headerMenusService: HeaderMenusService
+    private headerMenusService: HeaderMenusService,
+    private storageService: StorageService
   ) {
     
     this.loginUser =  new AuthDTO('','','','');
@@ -47,16 +50,30 @@ export class LoginComponent  implements OnInit{
   }
 
   ngOnInit(): void {
-    
+    if(this.storageService.isLoggedIn()){
+      this.isLoggedIn = true;
+    }
   }
 
-  async login(): Promise<void> {
+  login(): void {
     let errorResponse: any;
     let responseOK: boolean = false;
     
     try {
-      this.authService.login(this.loginForm.value).subscribe(); //() => responseOK = true
-      console.log(this.loginForm.value);
+      this.authService.login(this.loginForm.value).subscribe({
+        next: response => {
+          this.storageService.saveUser(response);
+          this.isLoggedIn = true;
+          this.headerMenusService.headerManagement.next({ showAuthSection: true });
+          window.location.reload();
+          this.router.navigateByUrl('/');
+        },
+        error: err => {
+          console.log('Login error: ' + err.error.message);
+          this.isLoggedIn = false;
+          this.headerMenusService.headerManagement.next({ showAuthSection: false });
+        }
+      });
       responseOK = true;
     } 
     catch (error: any) {
@@ -64,14 +81,6 @@ export class LoginComponent  implements OnInit{
       responseOK = false;
       console.log(errorResponse);
     }
-
-    let headerInfo: HeaderMenus
-    if (responseOK) {
-      headerInfo = { showAuthSection: true };
-    } else {
-      headerInfo = { showAuthSection: false };
-    }
-    this.headerMenusService.headerManagement.next(headerInfo);
 
     this.router.navigateByUrl('/');
 

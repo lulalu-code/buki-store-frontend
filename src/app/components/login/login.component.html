@@ -1,8 +1,8 @@
-<div class="rounded-3xl bg-[#e5e5efda] w-2/4 h-full m-6 pb-6 pt-3 ml-auto mr-auto">
+<div class="rounded-3xl bg-[#e5e5efda] w-full m-2 pb-2 intermediate:w-2/4 h-full intermediate:m-6 intermediate:pb-6 pt-3 ml-auto mr-auto">
     <p id="registerFeedback"></p>
   <div>
     <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Iniciar sesión</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="login()" class="py-5 px-10">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="pt-5 px-10">
       
       <div>
         <input placeholder="Email" [formControl]="email" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]" type="email" />
@@ -20,11 +20,11 @@
         </div>
       </div>
       
-      <div class="flex justify-center">
-        <button class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white" type="submit">Iniciar sesión</button>
+      <div class="flex justify-center pt-8">
+        <button class="bg-[#7552D8] py-3 px-14 mt-2 rounded-full text-white" type="submit">Iniciar sesión</button>
       </div>
       <div class="flex justify-center">
-        <button routerLink="/register" class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white" type="submit">Registrarse</button>
+        <button routerLink="/register" class="bg-[#7552D8] py-3 px-16 mt-2 rounded-full text-white" type="submit">Registrarse</button>
       </div>
     </form>
   </div>
