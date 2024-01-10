@@ -22,6 +22,10 @@ export class ProductService {
     return this.http.get<Product>(environment.api_url + 'products/' + id);
   }
 
+  getProductsByAuthorName(author_name: string): Observable<Product[]> {
+    return this.http.get<Product[]>(environment.api_url + author_name + '/products');
+  }
+
   deleteProductById(id: string): Observable<Object> {
     return this.http.delete(environment.api_url + 'products/' + id, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }

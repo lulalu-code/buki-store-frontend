@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.dto';
 import { ProductService } from 'src/app/services/product.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
-  styleUrls: ['./product-card.component.sass']
+  styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
   product: Product | undefined;
@@ -14,7 +15,9 @@ export class ProductCardComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
+    private location: Location,
   ){}
+
 
   ngOnInit(): void {
     const identifier = this.activatedRoute.snapshot.paramMap.get('id') || ''
@@ -28,6 +31,13 @@ export class ProductCardComponent implements OnInit {
       this.product = product;
       console.log('Product --> ', this.product);
     })
+
+
+    
   }
+  goBack(): void {
+    this.location.back();
+}
+
 
 }

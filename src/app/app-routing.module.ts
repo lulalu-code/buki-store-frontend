@@ -13,7 +13,7 @@ import { CartComponent } from './components/cart/cart.component';
 const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'profile', component: ProfileComponent},
+  { path: 'profile/:author_name', component: ProfileComponent},
   { path: 'about', component: AboutUsComponent},
   { path: 'product/:id', component: ProductCardComponent},
   { path: 'contact', component: ContactFormComponent},

@@ -6,7 +6,7 @@ import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.sass']
+  styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit{
 

@@ -17,11 +17,14 @@ import { ContactFormComponent } from './components/User/contact-form/contact-for
 import { ProfileComponent } from './components/User/profile/profile.component';
 import { RegisterComponent } from './components/User/register/register.component';
 import { HomeComponent } from './components/Home/home/home.component';
+import { CarouselComponent } from './components/Home/carousel/carousel.component';
+import { CartComponent } from './components/cart/cart.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CarouselComponent } from './components/Home/carousel/carousel.component';
-import { CartComponent } from './components/cart/cart.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {NgxPaginationModule} from 'ngx-pagination';
+
 
 
 @NgModule({
@@ -41,6 +44,7 @@ import { CartComponent } from './components/cart/cart.component';
     HomeComponent,
     CarouselComponent,
     CartComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { CartComponent } from './components/cart/cart.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    NgxPaginationModule
     
   ],
   providers: [],
