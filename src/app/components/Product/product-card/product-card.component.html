@@ -15,7 +15,7 @@
             </div>    
         </div>
         <div class="flex justify-center">
-            <img class="w-100 intermediate:w-2/4 m-3 rounded-xl"
+            <img class="w-100 mobile:w-3/5 intermediate:w-2/4 m-3 rounded-xl"
             [alt]="'Image of ' + product?.title"
             [src]="product?.imageURL"
             />
@@ -34,22 +34,22 @@
         <div class="my-3">
             {{product?.cm_height}} x {{product?.cm_width}} x {{product?.cm_length}}
         </div>
-        <div class="intermediate:flex">
-            <div class="w-full text-sm intermediate:text-base mb-4 intermediate:w-5/6">
+        <div class="flex justify-between">
+            <div class="text-sm intermediate:text-base mb-4 w-3/4">
                 <p class="mb-6 font-semibold">DESCRIPCIÓN</p>
                 <p class="mr-10 text-justify">{{product?.description}}</p>
             </div>    
-            <div class="flex justify-center intermediate:block">
-                <button routerLink="/contact" class="m-2 laptop:mx-3">
-                    <div class="bg-[#65D0BD] px-4 mobile:px-8 py-2 intermediate:px-12 intermediate:mb-2  rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
+            <div class="flex justify-center">
+                <button routerLink="/contact" class="mr-2 laptop:mx-3">
+                    <div class="bg-[#65D0BD] m-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
                         <p class="text-sm intermediate:text-base text-white font-semibold">Contacto</p>
                     </div>  
                 </button>
-                    <button routerLink="/cart" class="m-2 laptop:mx-3">
-                        <div class="bg-[#65D0BD] px-4 mobile:px-8 py-2 intermediate:px-12 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
-                            <p class="text-sm intermediate:text-base text-white font-semibold">Comprar</p>
-                        </div>  
-                    </button>
+                <button routerLink="/cart" class="laptop:mx-3">
+                    <div class="bg-[#65D0BD] ml-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
+                        <p class="text-sm intermediate:text-base text-white font-semibold">Comprar</p>
+                    </div>  
+                </button>
             </div>  
         </div> 
     </div> 

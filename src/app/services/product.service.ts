@@ -30,7 +30,8 @@ export class ProductService {
     return this.http.delete(environment.api_url + 'products/' + id, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
-  createProduct(product: Object): Observable<Object> {
+  createProduct(product: Product): Observable<Object> {
+    console.log(JSON.stringify(product))
     return this.http.post(environment.api_url + 'products', product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 

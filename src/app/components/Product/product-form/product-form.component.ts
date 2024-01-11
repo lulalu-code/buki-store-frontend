@@ -12,8 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ProductFormComponent implements OnInit{
 
-  selectedFile: File | undefined;
-
+  selectedFile!: File;
   
   title: FormControl;
   description: FormControl;
@@ -79,7 +78,6 @@ export class ProductFormComponent implements OnInit{
       Validators.required,
     ]);
 
-    
 
     this.productForm = this.formBuilder.group({
       title: this.title,
@@ -110,7 +108,20 @@ export class ProductFormComponent implements OnInit{
   handleFileInput(event: any) {
     this.selectedFile = event.target.files[0];
     //this.files.push(filePushed)
+    let reader = new FileReader(); // 
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.productForm.get('imageURL')!.setValue({
+          filename: file.name,
+          filetype: file.type,
+          value: (<string>reader.result).split(',')[1] // https://stackoverflow.com/questions/52032591/error-property-split-does-not-exist-on-type-string-arraybuffer-property
+        })
+      };
+    }
   }
+
   async createProduct(): Promise<void> {
     let errorResponse: any;
     console.log('Creating product')
@@ -119,15 +130,15 @@ export class ProductFormComponent implements OnInit{
     this.product.author_name = author_name;
     
     try {
+
       this.productService.createProduct(this.product).subscribe();
       this.router.navigateByUrl('/');
+
     } catch (error: any) {
       errorResponse = error.error;
       console.log(errorResponse);
     }
   }
- 
-  
 
 }
 
