@@ -1,18 +1,18 @@
 <div class="block laptop:flex">    
-    <div class="flex w-full intermediate:w-1/2 text-sm laptop:block rounded-3xl p-3 bg-[#e5e5efda] intermediate:text-base mobile:p-8 laptop:w-1/6 laptop:h-96 laptop:m-6 laptop:mb-10 laptop:py-12">
+    <div class="flex w-full intermediate:w-1/2 text-sm laptop:block rounded-3xl p-2 bg-[#e5e5efda] intermediate:text-base mobile:p-8 laptop:w-1/6 laptop:h-96 laptop:m-6 laptop:mb-10 laptop:py-12">
         <div class="flex justify-center w-1/2 intermediate:w-full">
             <img class="h-24 intermediate:h-32 laptop:h-36 m-1 laptop:mx-3 rounded-3xl object-cover"
-            alt="Image of teddy bears"
+            alt="Image of profile"
             src="../../../../assets/images/profile.png"
             />
         </div>
-        <div class="text-xs intermediate:text-base mx-3">
+        <div class="text-sm intermediate:text-base mx-3">
             <div class="font-extrabold text-xl py-4">
                 <h2 class="text-[#6948EF]">{{user.name}}</h2>
             </div>
             <div class="font-semibold my-3">
                 <div class="flex" routerLink="/contact">
-                    <p class="pr-3">{{user.email}}</p>
+                    <p class="pr-3 intermediate:pr-1">{{user.email}}</p>
                     <svg class="fill-[#6948EF]"xmlns="http://www.w3.org/2000/svg" height="1.3em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
                 </div>
                 <div class="flex">
@@ -22,13 +22,14 @@
             </div>
         </div>    
     </div>    
-    <div class="w-full text-sm p-3 mobile:text-base rounded-3xl mt-4 laptop:rounded-xl mobile:p-6 bg-[#e5e5efda] laptop:w-2/3 laptop:m-6 laptop:h-2/3 mb-10">
+    <div class="w-full text-sm p-3 mobile:text-base rounded-3xl mt-4 laptop:rounded-xl mobile:p-6 bg-[#e5e5efda] laptop:w-4/5 laptop:m-6 laptop:h-2/3 mb-10">
+        <h2 class="py-4 text-sm intermediate:text-2xl text-center font-bold text-[#372e5d]">Todos los productos de {{user.name}}</h2>
         <div class="flex flex-wrap tablet:py-4 laptop:p-4 fade-in justify-center">  
-            <div class="m-2 border-2 border-[#65D0BD] w-4/5 animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] mobile:w-1/4 intermediate::w-1/5 desktop:w-1/6 intermediate:m-4" 
+            <div class="m-2 border-2 border-[#65D0BD] w-4/5 animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] mobile:w-1/4 intermediate:m-4 desktop:w-1/5" 
             *ngFor="let product of user.products | paginate: { itemsPerPage: 10, currentPage: p }" [routerLink]="['/product', product.id]">
                 <a class="block rounded-3xl">
                     <div class="flex justify-center">
-                        <img class="w-full rounded-3xl h-40 w-intermediate:h-60 object-cover laptop:h-72"
+                        <img class="w-full rounded-3xl h-40 object-cover laptop:h-72"
                         [src]="product.imageURL"
                         [alt]="'Image of ' + product?.title"
                         />

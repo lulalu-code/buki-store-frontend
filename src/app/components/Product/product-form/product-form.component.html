@@ -12,12 +12,6 @@
             <div *ngIf="title.errors['maxlength']" class="text-red-700">El nombre puede contener como máximo 25 caracteres.</div>
           </div>
       </div>
-      <div>
-        <input placeholder="author_name" [formControl]="author_name"  type="text" class="w-50 rounded-lg py-3 px-4 my-4 text-white bg-[#505151]"/>
-        <div *ngIf="author_name.errors" [ngClass]="'error'">
-          
-        </div>
-    </div>
         <div class="m-2">
           <div class="flex items-center">
             <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4">
@@ -80,7 +74,7 @@
       </div>    
       
       <div class="flex justify-center">
-        <button class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white" type="submit">Subir el producto</button>
+        <button class="bg-[#7552D8] py-3 px-20 mt-2 rounded-full text-white hover:bg-[#9294f1] hover:-translate-y-1 hover:scale-105 hover:duration-150" type="submit">Subir el producto</button>
       </div>
     </form>
     

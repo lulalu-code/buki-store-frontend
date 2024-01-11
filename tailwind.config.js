@@ -16,8 +16,8 @@ module.exports = {
       'intermediate': '780px',
       // => @media (min-width: 710px) { ... }
 
-      'laptop': '1200px',
-      // => @media (min-width: 1200px) { ... }
+      'laptop': '1100px',
+      // => @media (min-width: 1100px) { ... }
 
       'desktop': '1500px',
       // => @media (min-width: 1500px) { ... }

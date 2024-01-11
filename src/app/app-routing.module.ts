@@ -9,6 +9,7 @@ import { ProductCardComponent } from './components/Product/product-card/product-
 import { ContactFormComponent } from './components/User/contact-form/contact-form.component';
 import { LoginComponent } from './components/login/login.component';
 import { CartComponent } from './components/cart/cart.component';
+import { SentComponent } from './components/sent/sent.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactFormComponent},
   { path: 'login', component: LoginComponent},
   { path: 'product-form', component: ProductFormComponent},
-  { path: 'cart', component: CartComponent}
+  { path: 'cart', component: CartComponent},
+  { path: 'sent', component: SentComponent}
 ];
 
 @NgModule({

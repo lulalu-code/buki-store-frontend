@@ -24,6 +24,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { SentComponent } from './components/sent/sent.component';
 
 
 
@@ -44,6 +45,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     HomeComponent,
     CarouselComponent,
     CartComponent,
+    SentComponent,
     
   ],
   imports: [
