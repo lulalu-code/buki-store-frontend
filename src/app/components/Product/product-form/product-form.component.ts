@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.dto';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { SharedService } from 'src/app/services/shared.service';
+
 
 @Component({
   selector: 'app-product-form',
@@ -13,6 +15,9 @@ import { StorageService } from 'src/app/services/storage.service';
 export class ProductFormComponent implements OnInit{
 
   selectedFile!: File;
+  img: string;
+  responseOK: boolean;
+  private isUpdateMode: boolean;
   
   title: FormControl;
   description: FormControl;
@@ -27,15 +32,24 @@ export class ProductFormComponent implements OnInit{
   productForm: FormGroup;
   product: Product;
   isValidForm: boolean | null;
+  private productId: string | null
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
     private router: Router,
+    private sharedService: SharedService,
+    private activatedRoute: ActivatedRoute,
   ){
+    this.img = '';
+    this.responseOK = false;
+    this.isUpdateMode = false;
+
     this.product = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined);
     this.isValidForm = null;
+    this.productId = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log('Product ID ---> ' + this.productId)
 
     this.title = new FormControl(this.product.title, [
       Validators.required,
@@ -78,7 +92,6 @@ export class ProductFormComponent implements OnInit{
       Validators.required,
     ]);
 
-
     this.productForm = this.formBuilder.group({
       title: this.title,
       description: this.description,
@@ -89,20 +102,34 @@ export class ProductFormComponent implements OnInit{
       is_customable: this.is_customable,
       imageURL:this.imageURL,
       price:this.price
-      
     });
   }
 
   ngOnInit(): void {
-    this.title.setValue(this.product.title);
-    this.description.setValue(this.product.description);
-    this.category.setValue(this.product.category);
-    this.cm_height.setValue(this.product.cm_height);
-    this.cm_width.setValue(this.product.cm_width);
-    this.cm_length.setValue(this.product.cm_length);
-    this.is_customable.setValue(this.product.is_customable);
-    this.imageURL.setValue(this.product.imageURL);
-    this.price.setValue(this.product.price);
+
+    if(this.productId) {
+      this.isUpdateMode = true;
+      try {
+        this.productService.getProductById(this.productId).subscribe({
+          next: product => {
+            this.title.setValue(product.title);
+            this.description.setValue(product.description);
+            this.category.setValue(product.category);
+            this.cm_height.setValue(product.cm_height);
+            this.cm_width.setValue(product.cm_width);
+            this.cm_length.setValue(product.cm_length);
+            this.is_customable.setValue(product.is_customable);
+            this.imageURL.setValue(product.imageURL);
+            this.price.setValue(product.price);
+          },
+          error: err => console.log('Login error: ' + err.error.message)
+        })
+      } catch (error:any) {
+        this.sharedService.errorLog(error.error);
+      }
+
+    }
+
   }
 
   handleFileInput(event: any) {
@@ -113,6 +140,7 @@ export class ProductFormComponent implements OnInit{
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
+        //this.img = (<string>reader.result).split(',')[1]
         this.productForm.get('imageURL')!.setValue({
           filename: file.name,
           filetype: file.type,
@@ -124,19 +152,79 @@ export class ProductFormComponent implements OnInit{
 
   async createProduct(): Promise<void> {
     let errorResponse: any;
-    console.log('Creating product')
-    this.product = this.productForm.value;
+    let responseOK: boolean = false;
+
     let author_name = this.storageService.getUser().author_name;
     this.product.author_name = author_name;
     
     try {
-
-      this.productService.createProduct(this.product).subscribe();
-      this.router.navigateByUrl('/');
+      this.productService.createProduct(this.product).subscribe({
+        next: () => {
+          this.responseOK = true;
+          this.router.navigateByUrl('profile/' + this.product.author_name);
+        },
+        error: error => this.sharedService.errorLog(error.error)
+      });
+      //this.router.navigateByUrl('/');
 
     } catch (error: any) {
-      errorResponse = error.error;
-      console.log(errorResponse);
+      this.sharedService.errorLog(error.error);
+    }
+
+    await this.sharedService.managementToast(
+      'productFeedback',
+      responseOK,
+      errorResponse
+    );
+
+  }
+
+  editProduct(): any {
+    let responseOK = false;
+    let errorResponse: any;
+    if (this.productId) {
+      let author_name = this.storageService.getUser().author_name;
+
+      if(author_name) {
+        this.product.author_name = author_name;
+      }
+      else {
+        return;
+      }
+      try {
+        console.log('Update product')
+        this.productService.updateProduct(this.productId, this.product).subscribe({
+          next: () => {
+            responseOK = true;
+            this.router.navigateByUrl('profile/' + this.product.author_name);
+          },
+          error: error => console.log(error.error)
+        })
+      } catch (error: any) {
+        errorResponse = error.error
+        this.sharedService.errorLog(errorResponse);
+      }
+      /*await this.sharedService.managementToast(
+        'categoryFeedback',
+        responseOK,
+        errorResponse
+      );*/
+
+    }
+    return responseOK;
+  }
+
+  saveProduct(): any {
+    if(this.productForm.invalid) {
+      return;
+    }
+
+    this.product = this.productForm.value;
+    
+    if(this.isUpdateMode) {
+      this.editProduct();
+    } else {
+      this.createProduct();
     }
   }
 

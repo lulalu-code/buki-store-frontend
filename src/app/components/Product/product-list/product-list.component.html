@@ -1,10 +1,20 @@
 <app-search-bar (search)="filterProducts($event)"></app-search-bar>
 <app-carousel></app-carousel>
+
 <div class="mt-4">
+    <div class="flex items-center justify-center intermediate:text-xl laptop:text-2xl font-bold m-4 mobile:m-6 border-b-2 border-white">
+        <div class="rounded-full m-2 p-2 mobile:p-4 intermediate:p-5 bg-[#ffffffbc]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#ec6152] w-3 mobile:w-4 intermediate:w-5 desktop:w-6" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->--><path d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7 .1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4zM225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4C112 375.4 162.6 416 225.7 416z"/></svg>
+        </div>
+        <h1 class="py-4 mx-2 text-center text-xs mobile:text-base intermediate:text-xl intermediate:mx-8 font-bold text-[#323534]">Echa un ojo a las últimas novedades</h1>
+        <div class="rounded-full m-2 p-2 mobile:p-4 intermediate:p-5 bg-[#ffffffbc]">
+            <svg xmlns="http://www.w3.org/2000/svg" class="fill-[#ec6152] w-3 mobile:w-4 intermediate:w-5 desktop:w-6" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->--><path d="M159.3 5.4c7.8-7.3 19.9-7.2 27.7 .1c27.6 25.9 53.5 53.8 77.7 84c11-14.4 23.5-30.1 37-42.9c7.9-7.4 20.1-7.4 28 .1c34.6 33 63.9 76.6 84.5 118c20.3 40.8 33.8 82.5 33.8 111.9C448 404.2 348.2 512 224 512C98.4 512 0 404.1 0 276.5c0-38.4 17.8-85.3 45.4-131.7C73.3 97.7 112.7 48.6 159.3 5.4zM225.7 416c25.3 0 47.7-7 68.8-21c42.1-29.4 53.4-88.2 28.1-134.4c-4.5-9-16-9.6-22.5-2l-25.2 29.3c-6.6 7.6-18.5 7.4-24.7-.5c-16.5-21-46-58.5-62.8-79.8c-6.3-8-18.3-8.1-24.7-.1c-33.8 42.5-50.8 69.3-50.8 99.4C112 375.4 162.6 416 225.7 416z"/></svg>
+        </div>
+    </div>
     <div class="flex text-xs mobile:text-sm mb-2 laptop:text-base intermediate:mb-4 justify-center items-center">
-        <p class="text-white font-semibold mr-2 mobile:mx-4">Ordenar por</p>
+        <p class="text-white font-bold mr-2 mobile:mx-4">Ordenar por</p>
         <form action="#" class="flex ">
-            <select id="lang" class="rounded-full mobile:h-8 py-1 mobile:px-2 bg-[#65D0BD] text-white font-semibold text-center">
+            <select id="lang" class="rounded-full mobile:h-8 py-1 mobile:px-2 bg-[#65D0BD] text-white font-bold text-center">
             <option (click)="sortProductsAsc()" value="precio asc">Precio asc</option>
             <option (click)="sortProductsDesc()" value="precio desc">Precio desc</option>
             <option  value="más nuevo">Más nuevo</option>
@@ -13,9 +23,9 @@
     </div>
     <div class="flex flex-wrap tablet:py-4 laptop:p-4 fade-in justify-center">
         
-        <div class="m-2 border-2 border-[#65D0BD] w-2/5 animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] tablet:w-1/4 laptop:w-1/5 desktop:w-1/6 intermediate:m-4" 
+        <div class="m-2 border-2 border-[#65D0BD] w-4/5 mobile:w-2/5 animate__animated animate__bounce animate__fadeIn rounded-3xl bg-[#e5e5efda] tablet:w-1/4 laptop:w-1/5 desktop:w-1/6 intermediate:m-4" 
         *ngFor="let product of filteredProducts | paginate: { itemsPerPage: 20, currentPage: p }" [routerLink]="['/product', product.id]">
-            <a class="block rounded-3xl">
+            <a class="block rounded-3xl cursor-pointer">
                 <div class="flex justify-center">
                     <img class="w-full rounded-3xl h-40 w-intermediate:h-60 object-cover laptop:h-72"
                     [src]="product.imageURL"
@@ -23,9 +33,9 @@
                     />
                 </div>
                 <div class="px-2 pt-3 font-extrabold text-xl intermediate:p-4">
-                    <h2 class="text-sm text-[#313032] tablet:text-base laptop:text-lg desktop:text-xl">{{product.title}}</h2>
+                    <h2 class="text-xs mobile:text-sm text-[#313032] tablet:text-base laptop:text-lg desktop:text-xl">{{product.title}}</h2>
                 </div>
-                <div class="w-full p-2 flex font-semibold my-3 justify-between intermediate:p-4 intermediate:pb-8">
+                <div class="w-full p-2 flex font-bold my-3 justify-between intermediate:p-4 intermediate:pb-8">
                     <div class="w-full flex items-center">
                         <div>
                             <p class="pr-2 text-base tablet:text-base laptop:text-lg laptop:pr-5 desktop:text-xl">{{product.price}}</p>
@@ -42,9 +52,9 @@
         </div>
 
     </div>
-    <div>
-        <pagination-controls (pageChange)="p = $event" class="my-pagination flex font-semibold justify-center" previousLabel="Previa"
-                      nextLabel="Siguiente"></pagination-controls>
+    <div class="mt-4">
+        <pagination-controls class="my-pagination flex mobile:font-bold justify-center text-xs mobile:text-base text-white mx-0" (pageChange)="p = $event"  previousLabel=" "
+                      nextLabel=" "></pagination-controls>
 
     </div>
 </div>        

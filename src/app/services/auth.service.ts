@@ -77,6 +77,7 @@ export class AuthService {
   }
 
   register(user: UserDTO): Observable<any> {
+    console.log('userrr is: ' + JSON.stringify(user))
     return this.http.post(environment.api_url + 'register', user, httpOptions);
   }
   

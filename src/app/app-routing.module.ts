@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductCardComponent},
   { path: 'contact', component: ContactFormComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'product-form/:id', component: ProductFormComponent},
   { path: 'product-form', component: ProductFormComponent},
   { path: 'cart', component: CartComponent},
   { path: 'sent', component: SentComponent}

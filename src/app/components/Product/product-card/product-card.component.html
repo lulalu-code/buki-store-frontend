@@ -4,8 +4,8 @@
     </button>
 </div>
 <div class="flex justify-center">
-    <div class="w-full p-5 rounded-xl bg-[#e5e5efda] intermediate:3/4 laptop:w-2/4 h-2/3 m-6 mb-10 intermediate:p-8 intermediate:px-16">
-        <div class="intermediate:flex justify-between p-2 intermediate:p-6">
+    <div class="w-full p-8 rounded-xl bg-[#e5e5efda] intermediate:3/4 laptop:w-4/5 desktop:w-3/5 h-2/3 my-3 mb-8 intermediate:p-8 intermediate:px-16">
+        <div class="intermediate:flex justify-between py-2 intermediate:py-6">
             <div>
                 <h1 class="mb-3 intermediate:mb-1 text-lg mobile:text-xl font-bold intermediate:text-3xl font text-[#27272a]"> {{product?.title}} </h1>
             </div>    
@@ -15,39 +15,40 @@
             </div>    
         </div>
         <div class="flex justify-center">
-            <img class="w-100 mobile:w-3/5 intermediate:w-2/4 m-3 rounded-xl"
+            <img class="w-100 mobile:w-4/5 intermediate:w-2/4 m-3 rounded-xl"
             [alt]="'Image of ' + product?.title"
             [src]="product?.imageURL"
             />
         </div>
         <div class="flex justify-between my-8">
             <div class="flex">
-                <h2 class="text-xl intermediate:text-2xl font-semibold">{{product?.price}}</h2>
+                <h2 class="text-xl intermediate:text-2xl font-bold">{{product?.price}}</h2>
                 <svg class="fill-[#313032] h-6 mx-2 pt-1" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M48.1 240c-.1 2.7-.1 5.3-.1 8v16c0 2.7 0 5.3 .1 8H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H60.3C89.9 419.9 170 480 264 480h24c17.7 0 32-14.3 32-32s-14.3-32-32-32H264c-57.9 0-108.2-32.4-133.9-80H256c17.7 0 32-14.3 32-32s-14.3-32-32-32H112.2c-.1-2.6-.2-5.3-.2-8V248c0-2.7 .1-5.4 .2-8H256c17.7 0 32-14.3 32-32s-14.3-32-32-32H130.1c25.7-47.6 76-80 133.9-80h24c17.7 0 32-14.3 32-32s-14.3-32-32-32H264C170 32 89.9 92.1 60.3 176H32c-17.7 0-32 14.3-32 32s14.3 32 32 32H48.1z"/></svg>
             </div>    
             <div *ngIf="product?.is_customable" class="bg-[#7552D8] flex py-2 rounded-xl">
-                <p class="text-xs intermediate:text-sm text-white font-semibold ml-2 intermediate:ml-4">Personalizable</p>
+                <p class="text-xs intermediate:text-sm text-white font-bold ml-2 intermediate:ml-4">Personalizable</p>
                 <!-- customable logo -->
                 <svg class="fill-[#65D0BD] mx-2 intermediate:mx-4 w-3 intermediate:w-4 desktop:w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M469.3 19.3l23.4 23.4c25 25 25 65.5 0 90.5l-56.4 56.4L322.3 75.7l56.4-56.4c25-25 65.5-25 90.5 0zM44.9 353.2L299.7 98.3 413.7 212.3 158.8 467.1c-6.7 6.7-15.1 11.6-24.2 14.2l-104 29.7c-8.4 2.4-17.4 .1-23.6-6.1s-8.5-15.2-6.1-23.6l29.7-104c2.6-9.2 7.5-17.5 14.2-24.2zM249.4 103.4L103.4 249.4 16 161.9c-18.7-18.7-18.7-49.1 0-67.9L94.1 16c18.7-18.7 49.1-18.7 67.9 0l19.8 19.8c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1l45.1 45.1zM408.6 262.6l45.1 45.1c-.3 .3-.7 .6-1 .9l-64 64c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0l64-64c.3-.3 .6-.7 .9-1L496 350.1c18.7 18.7 18.7 49.1 0 67.9L417.9 496c-18.7 18.7-49.1 18.7-67.9 0l-87.4-87.4L408.6 262.6z"/></svg>
             </div>   
         </div>
-        <div class="my-3">
-            {{product?.cm_height}} x {{product?.cm_width}} x {{product?.cm_length}}
+        <div class="text-sm intermediate:text-base my-6">
+            <p class="font-bold mb-4">Medidas</p>
+            <p>{{product?.cm_height + " cm"}} <b>x</b> {{product?.cm_width + " cm"}} <b>x</b> {{product?.cm_length + " cm"}}</p>
         </div>
-        <div class="flex justify-between">
+        <div class="intermediate:flex justify-between">
             <div class="text-sm intermediate:text-base mb-4 w-3/4">
-                <p class="mb-6 font-semibold">DESCRIPCIÓN</p>
+                <p class="mb-4 font-bold">Descripción</p>
                 <p class="mr-10 text-justify">{{product?.description}}</p>
             </div>    
             <div class="flex justify-center">
                 <button routerLink="/contact" class="mr-2 laptop:mx-3">
                     <div class="bg-[#65D0BD] m-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
-                        <p class="text-sm intermediate:text-base text-white font-semibold">Contacto</p>
+                        <p class="text-sm intermediate:text-base text-white font-bold">Contacto</p>
                     </div>  
                 </button>
                 <button routerLink="/cart" class="laptop:mx-3">
                     <div class="bg-[#65D0BD] ml-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
-                        <p class="text-sm intermediate:text-base text-white font-semibold">Comprar</p>
+                        <p class="text-sm intermediate:text-base text-white font-bold">Comprar</p>
                     </div>  
                 </button>
             </div>  

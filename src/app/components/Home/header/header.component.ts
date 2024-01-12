@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HeaderComponent implements OnInit {
   showAuthSection: boolean;
+  user_name: string;
 
   constructor(
     private headerMenusService: HeaderMenusService,
@@ -18,9 +19,12 @@ export class HeaderComponent implements OnInit {
     private storageService: StorageService
   ) {
     this.showAuthSection = false;
+    this.user_name = '';
   }
 
   ngOnInit(): void {
+    this.user_name = this.storageService.getUser().author_name; 
+
     this.headerMenusService.headerManagement.subscribe(
       (headerInfo: HeaderMenus) => {
         console.log("headerInfo is :" + headerInfo.showAuthSection);

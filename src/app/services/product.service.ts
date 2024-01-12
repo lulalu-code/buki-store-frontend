@@ -36,6 +36,8 @@ export class ProductService {
   }
 
   updateProduct(id: string, product: Product): Observable<Object> {
+    console.log('Product to be updated: ' + JSON.stringify(product))
+
     return this.http.put(environment.api_url + 'products/' + id, product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
