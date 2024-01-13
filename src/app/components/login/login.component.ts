@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthDTO } from 'src/app/models/auth.dto';
+import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { HeaderMenus } from 'src/app/models/header-menu.dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 @Component({
@@ -22,16 +25,19 @@ export class LoginComponent  implements OnInit{
   userService: any;
   productForm: any;
   isLoggedIn = false;
+  loginSubscription: Subscription;
   
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private headerMenusService: HeaderMenusService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private toastService: ToastService,
   ) {
-    
+    this.loginSubscription = new Subscription;
     this.loginUser =  new AuthDTO('','','','');
+
     this.email = new FormControl(this.loginUser.email, [
       Validators.required,
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -55,34 +61,28 @@ export class LoginComponent  implements OnInit{
     }
   }
 
-  login(): void {
-    let errorResponse: any;
-    let responseOK: boolean = false;
-    
-    try {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: response => {
-          this.storageService.saveUser(response);
-          this.isLoggedIn = true;
-          this.headerMenusService.headerManagement.next({ showAuthSection: true });
-          window.location.reload();
-          this.router.navigateByUrl('/');
-        },
-        error: err => {
-          console.log('Login error: ' + err.error.message);
-          this.isLoggedIn = false;
-          this.headerMenusService.headerManagement.next({ showAuthSection: false });
-        }
-      });
-      responseOK = true;
-    } 
-    catch (error: any) {
-      errorResponse = error.error;
-      responseOK = false;
-      console.log(errorResponse);
-    }
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
+  }
 
-    this.router.navigateByUrl('/');
+  login(): void {
+    
+    this.loginSubscription = this.authService.login(this.loginForm.value).subscribe({
+      next: response => {
+        this.storageService.saveUser(response);
+        this.isLoggedIn = true;
+        this.headerMenusService.headerManagement.next({ showAuthSection: true });
+        window.location.reload();
+        this.toastService.openSnackBar('Sessión iniciada con éxito', 'OK', EventTypesDTO.Success);
+        this.router.navigateByUrl('/');
+      },
+      error: error => {
+        console.log('login error: ' + JSON.stringify(error.error));
+        this.isLoggedIn = false;
+        this.headerMenusService.headerManagement.next({ showAuthSection: false });
+        this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
+      }
+    });
 
   }
 

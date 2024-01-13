@@ -5,6 +5,9 @@ import { Product } from 'src/app/models/product.dto';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { ToastService } from 'src/app/services/toast.service';
+import { EventTypesDTO } from 'src/app/models/event-types.dto';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -28,11 +31,16 @@ export class ProductFormComponent implements OnInit{
   is_customable:FormControl;
   imageURL:FormControl;
   price:FormControl;
+  created_at: Date;
 
   productForm: FormGroup;
   product: Product;
   isValidForm: boolean | null;
   private productId: string | null
+
+  private productUpdateSubscription: Subscription;
+  private productCreationSubscription: Subscription;
+  private getProductSubscription: Subscription;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -41,12 +49,14 @@ export class ProductFormComponent implements OnInit{
     private router: Router,
     private sharedService: SharedService,
     private activatedRoute: ActivatedRoute,
+    private toastService: ToastService,
   ){
     this.img = '';
     this.responseOK = false;
     this.isUpdateMode = false;
 
-    this.product = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined);
+    this.created_at = new Date;
+    this.product = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined, this.created_at);
     this.isValidForm = null;
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
     console.log('Product ID ---> ' + this.productId)
@@ -103,15 +113,19 @@ export class ProductFormComponent implements OnInit{
       imageURL:this.imageURL,
       price:this.price
     });
+
+    this.productUpdateSubscription = new Subscription;
+    this.productCreationSubscription = new Subscription;
+    this.getProductSubscription = new Subscription;
+
   }
 
   ngOnInit(): void {
 
     if(this.productId) {
       this.isUpdateMode = true;
-      try {
-        this.productService.getProductById(this.productId).subscribe({
-          next: product => {
+        this.getProductSubscription = this.productService.getProductById(this.productId).subscribe({
+          next: (product: Product) => {
             this.title.setValue(product.title);
             this.description.setValue(product.description);
             this.category.setValue(product.category);
@@ -121,26 +135,29 @@ export class ProductFormComponent implements OnInit{
             this.is_customable.setValue(product.is_customable);
             this.imageURL.setValue(product.imageURL);
             this.price.setValue(product.price);
+            this.created_at = product.created_at;
           },
-          error: err => console.log('Login error: ' + err.error.message)
+          error: error => {
+            console.log('getProductById error: ' + JSON.stringify(error.error));
+            this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
+          }
         })
-      } catch (error:any) {
-        this.sharedService.errorLog(error.error);
-      }
-
     }
+  }
 
+  ngOnDestroy(): void {
+    this.productUpdateSubscription.unsubscribe();
+    this.productCreationSubscription.unsubscribe();
+    this.getProductSubscription.unsubscribe();
   }
 
   handleFileInput(event: any) {
     this.selectedFile = event.target.files[0];
-    //this.files.push(filePushed)
     let reader = new FileReader(); // 
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        //this.img = (<string>reader.result).split(',')[1]
         this.productForm.get('imageURL')!.setValue({
           filename: file.name,
           filetype: file.type,
@@ -150,71 +167,51 @@ export class ProductFormComponent implements OnInit{
     }
   }
 
-  async createProduct(): Promise<void> {
-    let errorResponse: any;
-    let responseOK: boolean = false;
+  createProduct(): void { // https://stackoverflow.com/questions/71989511/how-to-make-program-wait-until-observable-is-executed-in-angular
 
     let author_name = this.storageService.getUser().author_name;
     this.product.author_name = author_name;
     
-    try {
-      this.productService.createProduct(this.product).subscribe({
-        next: () => {
-          this.responseOK = true;
-          this.router.navigateByUrl('profile/' + this.product.author_name);
-        },
-        error: error => this.sharedService.errorLog(error.error)
-      });
-      //this.router.navigateByUrl('/');
-
-    } catch (error: any) {
-      this.sharedService.errorLog(error.error);
-    }
-
-    await this.sharedService.managementToast(
-      'productFeedback',
-      responseOK,
-      errorResponse
-    );
+    this.productCreationSubscription = this.productService.createProduct(this.product).subscribe({
+      next: (product: Product) => {
+        this.responseOK = true;
+        this.toastService.openSnackBar('¡Product ' + product.title + ' creado con éxito!', 'OK', EventTypesDTO.Success)
+        this.router.navigateByUrl('profile/' + this.product.author_name);
+      },
+      error: error => {
+        console.log('productService error:' + JSON.stringify(error.error));
+        this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error)
+      }
+    });
 
   }
 
-  editProduct(): any {
+  editProduct(): void {
     let responseOK = false;
-    let errorResponse: any;
     if (this.productId) {
       let author_name = this.storageService.getUser().author_name;
-
       if(author_name) {
         this.product.author_name = author_name;
       }
       else {
         return;
       }
-      try {
-        console.log('Update product')
-        this.productService.updateProduct(this.productId, this.product).subscribe({
-          next: () => {
-            responseOK = true;
-            this.router.navigateByUrl('profile/' + this.product.author_name);
-          },
-          error: error => console.log(error.error)
-        })
-      } catch (error: any) {
-        errorResponse = error.error
-        this.sharedService.errorLog(errorResponse);
-      }
-      /*await this.sharedService.managementToast(
-        'categoryFeedback',
-        responseOK,
-        errorResponse
-      );*/
-
+      console.log('Update product')
+      this.productUpdateSubscription = this.productService.updateProduct(this.productId, this.product).subscribe({
+        next: () => {
+          responseOK = true;
+          this.router.navigateByUrl('profile/' + this.product.author_name);
+          this.toastService.openSnackBar('¡Producto actualizado con éxito!', 'OK', EventTypesDTO.Success)
+        },
+        error: error => {
+          console.log(error.error);
+          this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
+        }
+      })
     }
-    return responseOK;
   }
 
-  saveProduct(): any {
+  saveProduct(): void {
     if(this.productForm.invalid) {
       return;
     }

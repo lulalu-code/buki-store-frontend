@@ -22,11 +22,11 @@ import { CartComponent } from './components/cart/cart.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarAction, MatSnackBarLabel, MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SentComponent } from './components/sent/sent.component';
-
-
+import { ToastComponent } from './components/toast/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +56,9 @@ import { SentComponent } from './components/sent/sent.component';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    NgxPaginationModule
-    
+    NgxPaginationModule,
+    MatSnackBarModule,
+    ToastComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

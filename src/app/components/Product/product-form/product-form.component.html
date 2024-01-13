@@ -83,7 +83,7 @@
     </div>    
       
       <div class="flex justify-center">
-        <button class="bg-[#7552D8] text-sm mobile:text-base py-3 px-5 mobile:px-14 intermediate:px-20 mt-5 rounded-full text-white hover:bg-[#9294f1] hover:-translate-y-1 hover:scale-105 hover:duration-150" type="submit">Subir el producto</button>
+        <button [disabled]="productForm.invalid" class="bg-[#7552D8] text-sm mobile:text-base py-3 px-5 mobile:px-14 intermediate:px-20 mt-5 rounded-full text-white hover:bg-[#9294f1] hover:-translate-y-1 hover:scale-105 hover:duration-150" type="submit">Subir el producto</button>
       </div>
     </form>
     

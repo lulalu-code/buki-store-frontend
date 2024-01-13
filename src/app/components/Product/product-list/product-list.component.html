@@ -13,11 +13,11 @@
     </div>
     <div class="flex text-xs mobile:text-sm mb-2 laptop:text-base intermediate:mb-4 justify-center items-center">
         <p class="text-white font-bold mr-2 mobile:mx-4">Ordenar por</p>
-        <form action="#" class="flex ">
-            <select id="lang" class="rounded-full mobile:h-8 py-1 mobile:px-2 bg-[#65D0BD] text-white font-bold text-center">
-            <option (click)="sortProductsAsc()" value="precio asc">Precio asc</option>
-            <option (click)="sortProductsDesc()" value="precio desc">Precio desc</option>
-            <option  value="más nuevo">Más nuevo</option>
+        <form [formGroup]="sortingForm" action="#" class="flex ">
+            <select (change)="sortProducts()" id="sortBy" formControlName="sortBy" class="rounded-full mobile:h-8 py-1 mobile:px-2 bg-[#65D0BD] text-white font-bold text-center">
+            <option value="precio asc">Precio asc</option>
+            <option value="precio desc">Precio desc</option>
+            <option value="más nuevo">Más nuevo</option>
             </select>
         </form>
     </div>

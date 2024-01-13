@@ -10,6 +10,7 @@ export class Product {
     is_customable:boolean;
     imageURL:string;
     price:number|undefined;
+    created_at: Date;
 
     constructor(
         id:string,
@@ -22,7 +23,8 @@ export class Product {
         cm_length:number|undefined,
         is_customable:boolean,
         imageURL:string,
-        price:number|undefined
+        price:number|undefined,
+        created_at: Date,
       ) {
         this.id = id;
         this.title = title;
@@ -35,5 +37,6 @@ export class Product {
         this.is_customable = is_customable;
         this.imageURL = imageURL;
         this.price = price;
+        this.created_at = created_at;
       }
 }

@@ -12,7 +12,7 @@ import { StorageService } from './storage.service';
 })
 export class ProductService {
 
-  constructor(private http: HttpClient, private authService: AuthService, private storageService: StorageService) {}
+  constructor(private http: HttpClient, private storageService: StorageService) {}
 
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.api_url + 'products', { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
@@ -30,15 +30,12 @@ export class ProductService {
     return this.http.delete(environment.api_url + 'products/' + id, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
-  createProduct(product: Product): Observable<Object> {
-    console.log(JSON.stringify(product))
-    return this.http.post(environment.api_url + 'products', product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(environment.api_url + 'products', product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
-  updateProduct(id: string, product: Product): Observable<Object> {
-    console.log('Product to be updated: ' + JSON.stringify(product))
-
-    return this.http.put(environment.api_url + 'products/' + id, product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
+  updateProduct(id: string, product: Product): Observable<Product> {
+    return this.http.put<Product>(environment.api_url + 'products/' + id, product, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
   }
 
 }

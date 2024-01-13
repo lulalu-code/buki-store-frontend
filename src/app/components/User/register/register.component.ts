@@ -2,8 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { UserDTO } from 'src/app/models/user.dto';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-register',
@@ -25,13 +28,16 @@ export class RegisterComponent implements OnInit{
   registerForm: FormGroup;
   registerUser: UserDTO;
   isValidForm: boolean | null;
+  registerSubscription: Subscription;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
+    private toastService: ToastService,
   ){
     this.responseOK = false;
+    this.registerSubscription = new Subscription;
 
     this.registerUser = new UserDTO('', '', '', '', '', '');
     this.isValidForm = null;
@@ -85,22 +91,23 @@ export class RegisterComponent implements OnInit{
     this.profile_image.setValue(this.registerUser.profile_image);
   }
 
+  ngOnDestroy(): void {
+    this.registerSubscription.unsubscribe();
+  }
+
   register(): void {
     this.registerUser = this.registerForm.value;
-    try {
-      this.authService.register(this.registerUser).subscribe({
+    this.registerSubscription = this.authService.register(this.registerUser).subscribe({
         next: () => {
-          this.responseOK = true;
-          if (this.responseOK) {
-            this.router.navigateByUrl('login');
-          }
+          this.toastService.openSnackBar('¡Usuario registrado con éxito!', 'OK', EventTypesDTO.Success);
+          this.router.navigateByUrl('login');
         } ,
-        error: error => console.log('register error: ' + JSON.stringify(error))
-      });
-    } 
-    catch (error: any) {
-      console.log(error.error);
-    }
+        error: error => {
+          console.log('register error: ' + JSON.stringify(error.error));
+          this.toastService.openSnackBar(error.error.exception + ': ', 'OK' + error.error.message, EventTypesDTO.Error);
+        }
+      }
+    );
   }
 
   handleFileInput(event: any) {
