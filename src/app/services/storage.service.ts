@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { UserDTO } from '../models/user.dto';
 import { LoginResponse } from '../models/auth.dto';
+import { Observable } from 'rxjs';
 
 const USER_KEY = 'auth-user'
 
@@ -21,12 +21,12 @@ export class StorageService {
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser(): any {
+  public getUser(): LoginResponse {
     const user = window.sessionStorage.getItem(USER_KEY);
     if(user) {
-      return JSON.parse(user)
+      return JSON.parse(user);
     }
-    return {};
+    return new LoginResponse('', '', false, '');
   }
 
   public isLoggedIn(): boolean {

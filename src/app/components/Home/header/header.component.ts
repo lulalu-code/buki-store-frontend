@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { LoginResponse } from 'src/app/models/auth.dto';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { HeaderMenus } from 'src/app/models/header-menu.dto';
+import { UserDTO } from 'src/app/models/user.dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -28,10 +30,10 @@ export class HeaderComponent implements OnInit {
     this.user_name = '';
     this.logoutSubscription = new Subscription;
     this.headerManagementSubscription = new Subscription;
+    this.user_name = this.storageService.getUser().author_name;
   }
 
   ngOnInit(): void {
-    this.user_name = this.storageService.getUser().author_name;
 
     // Subscription to change the header any time the Auth status changes
     this.headerManagementSubscription = this.headerMenusService.headerManagement.subscribe(
@@ -48,6 +50,11 @@ export class HeaderComponent implements OnInit {
   ngOnDestroy(): void {
     this.logoutSubscription.unsubscribe();
     this.headerManagementSubscription.unsubscribe();
+  }
+
+  getUserRoute(): string {
+    this.user_name = this.storageService.getUser().author_name;
+    return '/profile/' + this.user_name;
   }
 
   logout(): void {

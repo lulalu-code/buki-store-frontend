@@ -17,8 +17,21 @@ export class AuthDTO {
     }
   }
 
-  export interface LoginResponse {
-    status: string,
-    response: string,
-    token: string
+  export class LoginResponse {
+    author_name: string;
+    message: string;
+    status: boolean;
+    token: string;
+
+    constructor(
+      author_name: string,
+      message: string,
+      status: boolean,
+      token: string,
+    ) {
+      this.author_name = author_name;
+      this.message = message;
+      this.status = status;
+      this.token = token;
+    }
   }

@@ -32,7 +32,7 @@
     </div>
     <div *ngIf="showAuthSection" class="flex items-center">
     <div>  
-      <a [routerLink]="['/profile/', user_name]">
+      <a [routerLink]="getUserRoute()">
         <button class="text-xs mobile:text-sm intermediate:text-base float-right">
           <div class="py-2 pr-11 pl-10 m-2 intermediate:py-2 intermediate:px-12 intermediate:m-3 bg-white bg-opacity-30 rounded-full flex transition ease-in-out delay-75 hover:bg-[#9294f1] hover:-translate-y-1 scale-105 duration-150">
             <p class="text-white font-bold">Mi perfil</p>

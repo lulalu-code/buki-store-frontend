@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthDTO } from 'src/app/models/auth.dto';
+import { AuthDTO, LoginResponse } from 'src/app/models/auth.dto';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { HeaderMenus } from 'src/app/models/header-menu.dto';
 import { AuthService } from 'src/app/services/auth.service';
@@ -68,11 +68,11 @@ export class LoginComponent  implements OnInit{
   login(): void {
     
     this.loginSubscription = this.authService.login(this.loginForm.value).subscribe({
-      next: response => {
+      next: (response: LoginResponse) => {
+        this.headerMenusService.headerManagement.next({ showAuthSection: true });
         this.storageService.saveUser(response);
         this.router.navigateByUrl('/');
         this.isLoggedIn = true;
-        this.headerMenusService.headerManagement.next({ showAuthSection: true });
         this.toastService.openSnackBar('Sessión iniciada con éxito', 'OK', EventTypesDTO.Success);
       },
       error: error => {
