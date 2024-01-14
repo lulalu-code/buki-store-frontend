@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.dto';
+import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { ProductService } from 'src/app/services/product.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { SharedService } from 'src/app/services/shared.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { EventTypesDTO } from 'src/app/models/event-types.dto';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -43,12 +43,13 @@ export class ProductFormComponent implements OnInit{
   private getProductSubscription: Subscription;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private productService: ProductService,
     private storageService: StorageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
+    private location: Location,
   ){
     this.img = '';
     this.responseOK = false;
@@ -221,6 +222,10 @@ export class ProductFormComponent implements OnInit{
     } else {
       this.createProduct();
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
