@@ -74,7 +74,8 @@
               "browserTarget": "buki-store-frontend:build:production"
             },
             "development": {
-              "browserTarget": "buki-store-frontend:build:development"
+              "browserTarget": "buki-store-frontend:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

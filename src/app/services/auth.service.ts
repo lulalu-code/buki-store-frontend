@@ -6,10 +6,10 @@ import { environment } from './../../environments/environment';
 import { UserDTO } from '../models/user.dto';
 import { StorageService } from './storage.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-}
-const headers = new HttpHeaders({'Content-Type': 'application/json'})
+
+const headers = new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class AuthService {
 
   login(credentials: AuthDTO): Observable<any> {
 
-    return this.http.post(environment.api_url + 'login', credentials, httpOptions);
+    return this.http.post(environment.api_url + 'login', credentials, { headers: headers } );
     /*let response = this.http.post<LoginResponse>(environment.api_url + 'login', credentials).pipe(
       catchError(this.handleError)
     )
@@ -73,11 +73,12 @@ export class AuthService {
   }*/
 
   logout(): Observable<any> {
-    return this.http.post(environment.api_url + 'logout', { }, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})})
+    const tokenHeaders = headers.set('Authorization', 'Bearer ' + this.storageService.getUser().token)
+    return this.http.post(environment.api_url + 'logout', { }, { headers: tokenHeaders });
   }
 
   register(user: UserDTO): Observable<any> {
-    return this.http.post(environment.api_url + 'register', user, httpOptions);
+    return this.http.post(environment.api_url + 'register', user, { headers: headers });
   }
   
 }

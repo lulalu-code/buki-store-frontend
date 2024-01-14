@@ -5,9 +5,10 @@ import { UserDTO } from '../models/user.dto';
 import { environment } from './../../environments/environment';
 import { StorageService } from './storage.service';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-}
+
+const headers = new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,16 @@ export class UserService {
   ) {}
 
   getUserByName(name: string): Observable<UserDTO> {
-    return this.http.get<UserDTO>(environment.api_url + 'users/' + name);
+    return this.http.get<UserDTO>(environment.api_url + 'users/' + name, { headers: headers });
   }
 
   deleteUserByName(name: string): Observable<Object> {
-    return this.http.delete(environment.api_url + 'users/' + name);
+    return this.http.delete(environment.api_url + 'users/' + name, { headers: headers });
   }
 
   updateUser(name: string, user: UserDTO): Observable<Object> {
-    return this.http.put(environment.api_url + 'users/' + name, user, { headers: new HttpHeaders({'Authorization': 'Bearer ' + this.storageService.getUser().token})});
+    const tokenHeaders = headers.set('Authorization', 'Bearer ' + this.storageService.getUser().token);
+    return this.http.put(environment.api_url + 'users/' + name, user, { headers: tokenHeaders });
   }
 
 }

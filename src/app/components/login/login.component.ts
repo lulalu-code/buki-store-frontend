@@ -69,11 +69,13 @@ export class LoginComponent  implements OnInit{
     
     this.loginSubscription = this.authService.login(this.loginForm.value).subscribe({
       next: (response: LoginResponse) => {
-        this.headerMenusService.headerManagement.next({ showAuthSection: true });
-        this.storageService.saveUser(response);
-        this.router.navigateByUrl('/');
-        this.isLoggedIn = true;
-        this.toastService.openSnackBar('Sessión iniciada con éxito', 'OK', EventTypesDTO.Success);
+        if (response.status) {
+          this.headerMenusService.headerManagement.next({ showAuthSection: true });
+          this.storageService.saveUser(response);
+          this.router.navigateByUrl('/');
+          this.isLoggedIn = true;
+          this.toastService.openSnackBar('Sessión iniciada con éxito', 'OK', EventTypesDTO.Success);
+        }
       },
       error: error => {
         console.log('login error: ' + JSON.stringify(error.error));
