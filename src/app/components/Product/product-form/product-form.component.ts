@@ -58,7 +58,6 @@ export class ProductFormComponent implements OnInit{
     this.product = new Product('','', '', '', '', undefined, undefined, undefined, false, '', undefined, this.created_at);
     this.isValidForm = null;
     this.productId = this.activatedRoute.snapshot.paramMap.get('id');
-    console.log('Product ID ---> ' + this.productId)
 
     this.title = new FormControl(this.product.title, [
       Validators.required,

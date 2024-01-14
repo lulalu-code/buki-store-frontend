@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ToastService } from 'src/app/services/toast.service';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { HttpErrorResponse } from '@angular/common/http';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-product-card',
@@ -16,6 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class ProductCardComponent implements OnInit {
   product: Product | undefined;
   getProductSubscription: Subscription = new Subscription;
+  deleteProductSubscription: Subscription = new Subscription;
+  identifier: string | null;
+  connectedUserName: string | null;
 
   constructor(
     private router: Router,
@@ -23,20 +27,22 @@ export class ProductCardComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private toastService: ToastService,
-  ){}
+    private storageService: StorageService,
+  ){
+    this.identifier = null;
+    this.connectedUserName = null;
+  }
 
   ngOnInit(): void {
-    const identifier = this.activatedRoute.snapshot.paramMap.get('id') || ''
-    console.log('Identifier --> ', identifier);
+    this.identifier = this.activatedRoute.snapshot.paramMap.get('id') || ''
+    this.connectedUserName = this.storageService.getUser().author_name;
 
-    this.getProductSubscription = this.productService.getProductById(identifier).subscribe({
+    this.getProductSubscription = this.productService.getProductById(this.identifier).subscribe({
       next: (product: Product) => {
         if(!product.id){
           this.router.navigateByUrl('/');
         }
-
         this.product = product;
-        console.log('Product --> ', this.product);
       },
       error: (error: HttpErrorResponse) => {
         console.log('getProductById error: ' + JSON.stringify(error.error));
@@ -47,10 +53,26 @@ export class ProductCardComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.getProductSubscription.unsubscribe();
+    this.deleteProductSubscription.unsubscribe();
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  deleteProduct():void {
+    if(this.identifier) {
+      this.deleteProductSubscription = this.productService.deleteProductById(this.identifier).subscribe({
+        next: () => {
+          this.router.navigateByUrl('profile/' + this.connectedUserName);
+          this.toastService.openSnackBar('Producto borrado con éxito', 'OK', EventTypesDTO.Success);
+        },
+        error: error => {
+          console.log('getUserByName error: ' + JSON.stringify(error.error));
+          this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
+        }
+      });
+    }
   }
 
 }

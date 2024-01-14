@@ -28,3 +28,18 @@
 ::ng-deep .error-snackbar .mat-mdc-button {
 --mdc-text-button-label-text-color: ##fff;
 }
+
+::ng-deep .warning-snackbar {
+--mdc-snackbar-container-color: #d79c53;
+--mdc-snackbar-supporting-text-color: #fff;
+}
+
+::ng-deep .warning-snackbar button {
+--mat-mdc-snack-bar-button-color: #fff;
+--mdc-snack-bar-button-color: #fff;
+--mdc-text-button-label-text-color: #fff;
+}
+
+::ng-deep .warning-snackbar .mat-mdc-button {
+--mdc-text-button-label-text-color: ##fff;
+}

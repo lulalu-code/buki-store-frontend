@@ -41,14 +41,24 @@
                 <p class="mr-10 text-justify">{{product?.description}}</p>
             </div>    
             <div class="flex justify-center">
-                <button routerLink="/contact" class="mr-2 laptop:mx-3">
+                <button *ngIf="(product?.author_name !== connectedUserName)" routerLink="/contact" class="mr-2 laptop:mx-3">
                     <div class="bg-[#65D0BD] m-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
                         <p class="text-sm intermediate:text-base text-white font-bold">Contacto</p>
                     </div>  
                 </button>
-                <button routerLink="/cart" class="laptop:mx-3">
+                <button *ngIf="(product?.author_name !== connectedUserName)" routerLink="/cart" class="laptop:mx-3">
                     <div class="bg-[#65D0BD] ml-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
                         <p class="text-sm intermediate:text-base text-white font-bold">Comprar</p>
+                    </div>  
+                </button>
+                <button *ngIf="(product?.author_name === connectedUserName)" [routerLink]="'/product-form/' + product?.id" class="mr-2 laptop:mx-3">
+                    <div class="bg-[#65D0BD] m-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
+                        <p class="text-sm intermediate:text-base text-white font-bold">Editar</p>
+                    </div>  
+                </button>
+                <button *ngIf="(product?.author_name === connectedUserName)" (click)="deleteProduct()" class="laptop:mx-3">
+                    <div class="bg-[#65D0BD] ml-2 px-4 mobile:px-8 py-2 rounded-full hover:bg-[#5dc3b0] hover:-translate-y-1 hover:scale-105 hover:duration-100">
+                        <p class="text-sm intermediate:text-base text-white font-bold">Eliminar</p>
                     </div>  
                 </button>
             </div>  

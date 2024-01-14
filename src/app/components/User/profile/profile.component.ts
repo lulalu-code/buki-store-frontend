@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { UserService } from 'src/app/services/user.service';
 import { ProfileDTO } from 'src/app/models/profile.dto';
 import { StorageService } from 'src/app/services/storage.service';

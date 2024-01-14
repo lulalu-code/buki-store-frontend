@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit{
 
   selectedFile!: File;
   responseOK: boolean;
-  private isUpdateMode: boolean;
+  isUpdateMode: boolean;
   private userName: string | null;
   private connectedUser: string | null;
 
@@ -101,6 +101,7 @@ export class RegisterComponent implements OnInit{
     this.connectedUser = this.storageService.getUser().author_name;
     if (this.connectedUser && this.connectedUser === this.userName) {
       this.isUpdateMode = true;
+      this.name.disable();
       this.getUserSubscription = this.userService.getUserByName(this.connectedUser).subscribe({
         next: (user: UserDTO) => {
           this.name.setValue(user.name);
@@ -143,6 +144,7 @@ export class RegisterComponent implements OnInit{
   }
 
   editUser(): void {
+    this.name.enable();
     this.registerUser = this.registerForm.value;
     console.log('connectedUser is: ' + this.connectedUser)
     console.log('registerUser is: ' + JSON.stringify(this.registerUser))
@@ -182,10 +184,14 @@ export class RegisterComponent implements OnInit{
   }
 
   saveUser(): void{
-    if(this.registerForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     }
     this.registerUser = this.registerForm.value;
+    if (this.registerUser.password !== this.registerUser.password_confirmation) {
+      this.toastService.openSnackBar('La confirmación de contraseña debe coincidir con la contraseña', 'OK', EventTypesDTO.Warning)
+      return;
+    }
     if(this.isUpdateMode) {
       this.editUser();
     } else {

@@ -13,12 +13,15 @@ export class ToastService {
   }
 
   openSnackBar(message: string, action: string, type: EventTypesDTO) {
-    let panelClass = ''
+    let panelClass = 'dummy';
     if (type == EventTypesDTO.Success) {
       panelClass = 'success-snackbar';
     }
     else if (type == EventTypesDTO.Error) {
       panelClass = 'error-snackbar';
+    } 
+    else if (type == EventTypesDTO.Warning) {
+      panelClass = 'warning-snackbar';
     }
     this._snackBar.openFromComponent(ToastComponent, {
       data: {
