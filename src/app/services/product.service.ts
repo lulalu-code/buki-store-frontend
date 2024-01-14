@@ -31,7 +31,7 @@ export class ProductService {
     return this.http.get<Product[]>(environment.api_url + author_name + '/products', { headers: headers });
   }
 
-  deleteProductById(id: string): Observable<Object> {
+  deleteProductById(id: string): Observable<any> {
     const tokenHeaders = headers.set('Authorization', 'Bearer ' + this.storageService.getUser().token);
     return this.http.delete(environment.api_url + 'products/' + id, { headers: tokenHeaders });
   }

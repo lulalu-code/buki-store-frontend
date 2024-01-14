@@ -24,11 +24,11 @@ export class UserService {
     return this.http.get<UserDTO>(environment.api_url + 'users/' + name, { headers: headers });
   }
 
-  deleteUserByName(name: string): Observable<Object> {
+  deleteUserByName(name: string): Observable<any> {
     return this.http.delete(environment.api_url + 'users/' + name, { headers: headers });
   }
 
-  updateUser(name: string, user: UserDTO): Observable<Object> {
+  updateUser(name: string, user: UserDTO): Observable<any> {
     const tokenHeaders = headers.set('Authorization', 'Bearer ' + this.storageService.getUser().token);
     return this.http.put(environment.api_url + 'users/' + name, user, { headers: tokenHeaders });
   }
