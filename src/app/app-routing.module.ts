@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'profile/:author_name', component: ProfileComponent},
+  { path: 'profile/edit/:author_name', component: RegisterComponent},
   { path: 'about', component: AboutUsComponent},
   { path: 'product/:id', component: ProductCardComponent},
   { path: 'contact', component: ContactFormComponent},

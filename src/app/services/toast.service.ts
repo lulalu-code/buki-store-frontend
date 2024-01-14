@@ -8,7 +8,9 @@ import { EventTypesDTO } from '../models/event-types.dto';
   providedIn: 'root'
 })
 export class ToastService {
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar) { 
+    
+  }
 
   openSnackBar(message: string, action: string, type: EventTypesDTO) {
     let panelClass = ''

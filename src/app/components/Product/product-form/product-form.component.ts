@@ -47,7 +47,6 @@ export class ProductFormComponent implements OnInit{
     private productService: ProductService,
     private storageService: StorageService,
     private router: Router,
-    private sharedService: SharedService,
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
   ){
@@ -124,24 +123,24 @@ export class ProductFormComponent implements OnInit{
 
     if(this.productId) {
       this.isUpdateMode = true;
-        this.getProductSubscription = this.productService.getProductById(this.productId).subscribe({
-          next: (product: Product) => {
-            this.title.setValue(product.title);
-            this.description.setValue(product.description);
-            this.category.setValue(product.category);
-            this.cm_height.setValue(product.cm_height);
-            this.cm_width.setValue(product.cm_width);
-            this.cm_length.setValue(product.cm_length);
-            this.is_customable.setValue(product.is_customable);
-            this.imageURL.setValue(product.imageURL);
-            this.price.setValue(product.price);
-            this.created_at = product.created_at;
-          },
-          error: error => {
-            console.log('getProductById error: ' + JSON.stringify(error.error));
-            this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
-          }
-        })
+      this.getProductSubscription = this.productService.getProductById(this.productId).subscribe({
+        next: (product: Product) => {
+          this.title.setValue(product.title);
+          this.description.setValue(product.description);
+          this.category.setValue(product.category);
+          this.cm_height.setValue(product.cm_height);
+          this.cm_width.setValue(product.cm_width);
+          this.cm_length.setValue(product.cm_length);
+          this.is_customable.setValue(product.is_customable);
+          this.imageURL.setValue(product.imageURL);
+          this.price.setValue(product.price);
+          this.created_at = product.created_at;
+        },
+        error: error => {
+          console.log('getProductById error: ' + JSON.stringify(error.error));
+          this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
+        }
+      })
     }
   }
 

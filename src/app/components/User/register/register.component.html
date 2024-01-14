@@ -2,7 +2,7 @@
     <p id="registerFeedback"></p>
   <div>
     <h1 class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Crea una cuenta</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="register()" class="py-5 px-10">
+    <form [formGroup]="registerForm" (ngSubmit)="saveUser()" class="py-5 px-10">
       <div class="">
         <input placeholder="Alias" [formControl]="name"  type="text" class="w-full rounded-lg py-5 px-4 my-4 text-white bg-[#505151]"/>
         <div *ngIf="name.errors && isValidForm != null && !isValidForm" [ngClass]="'error'">

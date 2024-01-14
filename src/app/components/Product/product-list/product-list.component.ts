@@ -82,7 +82,6 @@ export class ProductListComponent {
   }
 
   public sortProductsAsc(): void {
-    console.log('Sorting ascendant...');
     this.filteredProducts = [...this.filteredProducts].sort((a, b) => {
       if (b.price !== undefined && a.price !== undefined) {
         return a.price - b.price;
@@ -93,7 +92,6 @@ export class ProductListComponent {
   }
 
   public sortProductsDesc(): void {
-    console.log('Sorting descendant...');
     this.filteredProducts = [...this.filteredProducts].sort((a, b) => {
       if (a.price !== undefined && b.price !== undefined) {
         return b.price - a.price;
@@ -104,7 +102,6 @@ export class ProductListComponent {
   }
 
   public sortNewer(): void {
-    console.log('Sorting newer first...');
     this.filteredProducts = [...this.filteredProducts].sort((a, b) => {
       if (a.created_at != null && b.created_at != null) {
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime(); // https://www.programiz.com/javascript/examples/convert-date-number and https://stackoverflow.com/questions/2627650/why-javascript-gettime-is-not-a-function

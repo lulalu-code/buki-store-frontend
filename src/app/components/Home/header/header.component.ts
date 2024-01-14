@@ -56,7 +56,6 @@ export class HeaderComponent implements OnInit {
       next: () => {
         console.log('logging out...')
         this.storageService.clean();
-        window.location.reload();
         this.headerMenusService.headerManagement.next({ showAuthSection: false });
         this.toastService.openSnackBar('Sessión cerrada con éxito', 'OK', EventTypesDTO.Success);
       },

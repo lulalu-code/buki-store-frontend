@@ -45,8 +45,7 @@ import { ToastComponent } from './components/toast/toast/toast.component';
     HomeComponent,
     CarouselComponent,
     CartComponent,
-    SentComponent,
-    
+    SentComponent,    
   ],
   imports: [
     BrowserModule,
