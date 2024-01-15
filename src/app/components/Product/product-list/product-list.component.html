@@ -51,6 +51,10 @@
             </a>
         </div>
 
+        <div *ngIf="filteredProducts.length===0" class="text-center text-xl">
+            No hay productos que coincidan con este búsqueda.
+        </div>
+
     </div>
     <div class="mt-4">
         <pagination-controls class="my-pagination flex mobile:font-bold justify-center text-xs mobile:text-base text-white mx-0" (pageChange)="p = $event"  previousLabel=" "

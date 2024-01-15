@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { Product } from '../models/product.dto';
 import { environment } from './../../environments/environment';
-import { AuthService } from './auth.service';
 import { StorageService } from './storage.service';
 
 
 const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*');
+  .set('Accept', 'application/json')
+  .set('Access-Control-Allow-Origin', 'http://127.0.0.1:8000/api/products')
+  .set('Access-Control-Allow-Credentials', 'true');
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +21,7 @@ export class ProductService {
   constructor(private http: HttpClient, private storageService: StorageService) {}
 
   getAllProducts(): Observable<Product[]> {
-    const tokenHeaders = headers.set('Authorization', 'Bearer ' + this.storageService.getUser().token);
-    return this.http.get<Product[]>(environment.api_url + 'products', { headers: tokenHeaders });
+    return this.http.get<Product[]>(environment.api_url + 'products', { headers: headers });
   }
 
   getProductById(id: string): Observable<Product> {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { UserDTO } from '../models/user.dto';
 import { environment } from './../../environments/environment';
 import { StorageService } from './storage.service';
@@ -8,7 +9,8 @@ import { StorageService } from './storage.service';
 
 const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*');
+  .set('Access-Control-Allow-Origin', 'http://127.0.0.1:8000')
+  .set('Access-Control-Allow-Credentials', 'true');
 
 @Injectable({
   providedIn: 'root'

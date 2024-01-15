@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../models/auth.dto';
-import { Observable } from 'rxjs';
 
 const USER_KEY = 'auth-user'
 

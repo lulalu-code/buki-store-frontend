@@ -1,10 +1,9 @@
-import { Component, Injectable } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
-import { Product } from 'src/app/models/product.dto';
-import { ProductService } from 'src/app/services/product.service';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
+import { Product } from 'src/app/models/product.dto';
+import { ProductService } from 'src/app/services/product.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
 

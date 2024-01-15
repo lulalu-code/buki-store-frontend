@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from 'src/app/models/product.dto';
-import { ProductService } from 'src/app/services/product.service';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+
+import { Product } from 'src/app/models/product.dto';
+import { ProductService } from 'src/app/services/product.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
-import { HttpErrorResponse } from '@angular/common/http';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({

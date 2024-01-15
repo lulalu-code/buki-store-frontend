@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder, UntypedFormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
 import { UserDTO } from 'src/app/models/user.dto';
 import { AuthService } from 'src/app/services/auth.service';
@@ -38,13 +39,14 @@ export class RegisterComponent implements OnInit{
   getUserSubscription: Subscription;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
     private toastService: ToastService,
     private activatedRoute: ActivatedRoute,
     private storageService: StorageService,
+    private location: Location,
   ){
     this.responseOK = false;
     this.registerSubscription = new Subscription;
@@ -197,6 +199,10 @@ export class RegisterComponent implements OnInit{
     } else {
       this.register();
     }
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

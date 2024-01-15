@@ -1,10 +1,10 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthDTO, LoginResponse } from 'src/app/models/auth.dto';
 import { EventTypesDTO } from 'src/app/models/event-types.dto';
-import { HeaderMenus } from 'src/app/models/header-menu.dto';
 import { AuthService } from 'src/app/services/auth.service';
 import { HeaderMenusService } from 'src/app/services/header-menus.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -34,6 +34,7 @@ export class LoginComponent  implements OnInit{
     private headerMenusService: HeaderMenusService,
     private storageService: StorageService,
     private toastService: ToastService,
+    private location: Location,
   ) {
     this.loginSubscription = new Subscription;
     this.loginUser =  new AuthDTO('','','','');
@@ -84,7 +85,10 @@ export class LoginComponent  implements OnInit{
         this.toastService.openSnackBar(error.error.exception + ': ' + error.error.message, 'OK', EventTypesDTO.Error);
       }
     });
+  }
 
+  goBack(): void {
+    this.location.back();
   }
 
 }

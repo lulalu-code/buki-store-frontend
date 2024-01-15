@@ -1,6 +1,7 @@
 // https://betterprogramming.pub/how-to-create-a-toast-service-using-angular-13-and-bootstrap-5-494e5c66627
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { ToastComponent } from '../components/toast/toast/toast.component';
 import { EventTypesDTO } from '../models/event-types.dto';
 
