@@ -3,9 +3,9 @@
     <p> < Volver</p>
   </button>
 </div>
-<div class="rounded-3xl bg-[#e5e5efda] w-2/4 m-6 pb-6 pt-3 ml-auto mr-auto">
+<div class="w-full mobile:w-11/12 rounded-3xl bg-[#e5e5efda] intermediate:w-2/3 laptop:w-1/3 m-6 pb-6 pt-3 ml-auto mr-auto">
     <p id="registerFeedback"></p>
-  <div>
+  <div class="">
     <h1 *ngIf="!isUpdateMode" class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Crea una cuenta</h1>
     <h1 *ngIf="isUpdateMode" class="font-bold pt-7 px-10 text-3xl font text-[#27272a]">Modificar cuenta</h1>
     <form [formGroup]="registerForm" (ngSubmit)="saveUser()" class="py-5 px-10">
