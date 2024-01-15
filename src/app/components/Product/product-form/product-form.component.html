@@ -6,7 +6,8 @@
 <div class="rounded-3xl bg-[#e5e5efda] w-full text-sm ml-auto mr-auto tablet:w-3/4 laptop:w-2/4 laptop:text-base desktop:w-2/4">
     <p id="productFeedback"></p>
   <div>
-    <h1 class="text-lg mobile:text-2xl font-bold pt-7 px-10 intermediate:text-3xl font text-[#27272a]">Añade un producto</h1>
+    <h1 *ngIf="!isUpdateMode" class="text-lg mobile:text-2xl font-bold pt-7 px-10 intermediate:text-3xl font text-[#27272a]">Añade un producto</h1>
+    <h1 *ngIf="isUpdateMode" class="text-lg mobile:text-2xl font-bold pt-7 px-10 intermediate:text-3xl font text-[#27272a]">Edita el producto</h1>
     <form [formGroup]="productForm" (ngSubmit)="saveProduct()" class="py-10 px-10">
       <div class="intermediate:flex justify-between items-center">
         <div class="m-2">
@@ -87,8 +88,11 @@
       </a>    
     </div>    
       
-      <a class="flex justify-center">
+      <a  *ngIf="!isUpdateMode" class="flex justify-center">
         <button [disabled]="productForm.invalid" class="bg-[#7552D8] text-sm mobile:text-base py-3 px-5 mobile:px-14 intermediate:px-20 mt-5 rounded-full text-white hover:bg-[#9294f1] hover:-translate-y-1 hover:scale-105 hover:duration-150" type="submit">Subir el producto</button>
+      </a>
+      <a *ngIf="isUpdateMode" class="flex justify-center">
+        <button [disabled]="productForm.invalid" class="bg-[#7552D8] text-sm mobile:text-base py-3 px-5 mobile:px-14 intermediate:px-20 mt-5 rounded-full text-white hover:bg-[#9294f1] hover:-translate-y-1 hover:scale-105 hover:duration-150" type="submit">Editar el producto</button>
       </a>
     </form>
     

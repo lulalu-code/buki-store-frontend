@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnInit{
   selectedFile!: File;
   img: string;
   responseOK: boolean;
-  private isUpdateMode: boolean;
+  isUpdateMode: boolean;
   
   title: FormControl;
   description: FormControl;

@@ -94,6 +94,7 @@ export class RegisterComponent implements OnInit{
       name: this.name,
       email: this.email,
       password: this.password,
+      password_confirmation: this.password_confirmation,
       zone: this.zone,
       profile_image: this.profile_image,
     });
@@ -189,7 +190,9 @@ export class RegisterComponent implements OnInit{
     if (this.registerForm.invalid) {
       return;
     }
+    
     this.registerUser = this.registerForm.value;
+    console.log(JSON.stringify(this.registerUser))
     if (this.registerUser.password !== this.registerUser.password_confirmation) {
       this.toastService.openSnackBar('La confirmación de contraseña debe coincidir con la contraseña', 'OK', EventTypesDTO.Warning)
       return;
