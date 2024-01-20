@@ -196,7 +196,6 @@ export class ProductFormComponent implements OnInit{
       else {
         return;
       }
-      console.log('Update product')
       this.productUpdateSubscription = this.productService.updateProduct(this.productId, this.product).subscribe({
         next: () => {
           responseOK = true;

@@ -149,8 +149,6 @@ export class RegisterComponent implements OnInit{
   editUser(): void {
     this.name.enable();
     this.registerUser = this.registerForm.value;
-    console.log('connectedUser is: ' + this.connectedUser)
-    console.log('registerUser is: ' + JSON.stringify(this.registerUser))
     try {
     if(this.connectedUser) {
       this.editSubscription = this.userService.updateUser(this.connectedUser, this.registerUser).subscribe({
@@ -192,7 +190,6 @@ export class RegisterComponent implements OnInit{
     }
     
     this.registerUser = this.registerForm.value;
-    console.log(JSON.stringify(this.registerUser))
     if (this.registerUser.password !== this.registerUser.password_confirmation) {
       this.toastService.openSnackBar('La confirmación de contraseña debe coincidir con la contraseña', 'OK', EventTypesDTO.Warning)
       return;
